@@ -12,9 +12,7 @@
 </br>
 
 ## 적용기술
-Front-end: HTML, CSS, JavaScript, Jquery, Flask, Jinja2  
-Back-end: Python, Flask, Jinja2, MogoDB
-</br>
+
 
 ## 사용한 기술 스택
 ### Front-end
