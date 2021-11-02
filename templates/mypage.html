@@ -36,7 +36,7 @@
     <script>
         $(document).ready(function () {
             load_tag();
-            //load_commnet();
+            load_comment();
         });
 
         function load_tag(){
@@ -56,6 +56,54 @@
                 }
             })
         }
+
+        function load_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/comment?videoId_give=" + 'lZqQujPe02c',
+                data: {},
+                success: function (response) {
+                    $('#comment-list').empty();
+                    let comments = response['comments'];
+
+                    for (let i = 0; i < comments.length; i++) {
+                        let id = comments[i]['id'];
+                        let comment = comments[i]['comment'];
+
+                        let temp_html = `<div>
+                                            <div class="user-id"><a onclick="load_user_comment('${id}')">${id}</div>
+                                            <div class="comment">${comment}</div>
+                                         </div>`;
+                        $('#comment-list').append(temp_html);
+                    }
+                }
+            })
+        }
+
+        function load_user_comment(id) {
+            $.ajax({
+                type: "GET",
+                url: "/comment/user_comment?id_give=" + id,
+                data: {},
+                success: function (response) {
+                    $('#comment-list').empty();
+                    let comments = response['comments'];
+                    console.log(response);
+
+                    for (let i = 0; i < comments.length; i++) {
+                        let id = comments[i]['id'];
+                        let comment = comments[i]['comment'];
+
+                        let temp_html = `<div>
+                                            <div class="user-id">${id}</div>
+                                            <div class="comment">${comment}</div>
+                                         </div>`;
+                        $('#comment-list').append(temp_html);
+                    }
+                }
+            })
+        }
+
         function tag_add() {
             let tag = $('#tag').val();
             $.ajax({

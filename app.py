@@ -31,16 +31,23 @@ def mypage():
 @app.route('/search', methods=['GET'])
 def listing():
     query_receive = request.args.get('q')
+    id_receive = "dPMktPKUOfg"
 
     # 키워드 검색 결과 받아오기
     search_response = youtube.search().list(
         q=query_receive,
         order="date",
         part="snippet",
-        maxResults=50
+        maxResults=30
     ).execute()
 
-    return jsonify({'list': search_response})
+    id_response = youtube.search().list(
+        q=id_receive,
+        part="snippet",
+        maxResults=1
+    ).execute()
+
+    return jsonify({'list': search_response, 'videoId': id_response})
 
 
 @app.route('/search', methods=['POST'])
@@ -101,6 +108,56 @@ def tag_user():
     tag = list(db.tag.find({'tag': tag_receive}, {'_id': False}))
 
     return jsonify({'tags': tag})
+
+
+@app.route('/tag/what_tag', methods=['GET'])
+def what_tag():
+    videoId_receive = request.args.get('videoId_give')
+    tag = db.tag.distinct('tag', {'videoId': videoId_receive})
+
+    return tag
+
+
+@app.route('/comment', methods=['GET'])
+def comment():
+    videoId_receive = request.args.get('videoId_give')
+    comments = list(db.comment.find({'videoId': videoId_receive}, {'_id': False}))
+
+    return jsonify({'comments': comments})
+
+
+@app.route('/comment/user_comment', methods=['GET'])
+def user_comment():
+    id_receive = request.args.get('id_give')
+    comments = list(db.comment.find({'id': id_receive}, {'_id': False}))
+
+    return jsonify({'comments': comments})
+
+
+@app.route('/comment/insert', methods=['POST'])
+def comment_insert():
+    id_receive = request.form['id_give']
+    comment_receive = request.form['comment_give']
+    videoId_receive = request.form['videoId_give']
+
+    db.comment.insert_one({'id': id_receive,
+                       'comment': comment_receive,
+                       'videoId': videoId_receive})
+
+    return jsonify({'msg': '작성 완료!'})
+
+
+@app.route('/comment/delete', methods=['POST'])
+def comment_delete():
+    id_receive = request.form['id_give']
+    comment_receive = request.form['comment_give']
+    videoId_receive = request.form['videoId_give']
+
+    db.comment.delete_one({'id': id_receive,
+                       'comment': comment_receive,
+                       'videoId': videoId_receive})
+
+    return jsonify({'msg': '삭제 완료!'})
 
 
 if __name__ == '__main__':
