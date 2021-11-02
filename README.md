@@ -12,9 +12,7 @@
 </br>
 
 ## 적용기술
-Front-end: 
-Back-end: 
-</br>
+
 
 ## 사용한 기술 스택
 ### Front-end
