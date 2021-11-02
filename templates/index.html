@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <title>Youtube Random Player</title>
+
+    <style>
+        .search{
+            width: 500px;
+            height: 300px;
+            margin: auto;
+        }
+
+        #youtube-movie{
+            margin: 100px auto;
+        }
+    </style>
+    <script>
+        let yt_idx = 0;
+        let list;
+
+        $(document).ready(function () {
+
+        });
+
+        function search_list() {
+            let query = $('#query').val()
+
+            $.ajax({
+                type: "GET",
+                url: "/search?q=" + query,
+                data: {},
+                success: function (response) { // 성공하면
+                    //영상 정보 가져오기
+                    list = response['list']['items'];
+                    console.log(response['list']);
+                    if(list && list.length > 0){
+                        console.log(list);
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="search">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">#</span>
+            </div>
+            <input id="query" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <button onclick="search_list()" type="button" class="btn btn-primary">🔍</button>
+        </div>
+    </div>
+</body>
+</html>

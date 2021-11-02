@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <title>마이페이지</title>
+
+    <style>
+        .wrap{
+            width: 500px;
+            margin: auto;
+        }
+        .content{
+            width: 90%;
+            text-align:left;
+            display: block;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            load_tag();
+            //load_commnet();
+        });
+
+        function load_tag(){
+            $.ajax({
+                type: "GET",
+                url: "/tag",
+                data: {},
+                success: function (response) {
+                    $('#tag-list').empty();
+                     let tags = response['tags'];
+
+                    for (let i = 0; i < tags.length; i++) {
+                        let tag = tags[i]['tag'];
+                        let temp_html = `<div><a onclick="tag_del('${tag}')">#${tag}</a></div>`;
+                        $('#tag-list').append(temp_html);
+                    }
+                }
+            })
+        }
+        function tag_add() {
+            let tag = $('#tag').val();
+            $.ajax({
+                type: "POST",
+                url: "/tag/insert",
+                data: {
+                    id_give: 'test',
+                    tag_give: tag,
+                    videoId_give: null
+                },
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function tag_del(tag){
+            $.ajax({
+                type: "POST",
+                url: "/tag/delete",
+                data: {
+                    id_give: 'test',
+                    tag_give: tag,
+                    videoId_give: null
+                },
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function tag_popular(){
+            $.ajax({
+                type: "GET",
+                url: "/tag/popular",
+                data: {},
+                success: function (response) {
+                    $('#tag-list').empty();
+                    let tags = response['tags'];
+
+                    for(let i = 0; i < tags.length; i++){
+                        let tag = tags[i]['_id']['tag'];
+                        //이후 클릭하면 해당 태그로 영상 랜덤 재생하는 기능 추가
+                        let temp_html = `<div>#${tag}</a></div>`;
+                        $('#tag-list').append(temp_html);
+                    }
+                }
+            })
+        }
+
+        function tag_userList(){
+            let tag = '1';
+
+            $.ajax({
+                type: "GET",
+                url: "/tag/user_list?tag_give=" + tag,
+                data: {},
+                success: function (response) {
+                    $('#tag-list').empty();
+                    let tags = response['tags'];
+                    console.log(tags);
+                    for (let i = 0; i < tags.length; i++) {
+                        let id = tags[i]['id'];
+                        let temp_html = `<div>#${id}</div>`;
+                        $('#tag-list').append(temp_html);
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <h1>내 tag</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">#</span>
+            </div>
+            <input id="tag" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="tag를 입력하세요">
+            <button onclick="tag_add()" type="button" class="btn btn-primary">추가</button>
+            <button onclick="tag_popular()" type="button" class="btn btn-primary">Top테스트</button>
+            <button onclick="tag_userList()" type="button" class="btn btn-primary">User테스트</button>
+        </div>
+        <div id="tag-list">
+        </div>
+    </div>
+    <div class="wrap">
+        <h1>내 코멘트</h1>
+        <div id="comment-list">
+            <div>가사가 좋네요...</div>
+        </div>
+    </div>
+</body>
+</html>
