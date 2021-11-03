@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../static/randomplaylist.css">
+
+    <script>
+        function get_query() {
+            let url = document.location.href;
+            let qs = url.substring(url.indexOf('?') + 1).split('&');
+            let result = {}
+            for (let i = 0; i < qs.length; i++) {
+                qs[i] = qs[i].split('=');
+                result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+            }
+            return result;
+        }
+
+        let yt_idx = 0;
+        let list;
+        let isPlay=false;
+
+        $(document).ready(function () {
+            let parameters = get_query();
+            let playlistId = parameters['playlistId'];
+
+            if (playlistId) {
+                play_playlist(playlistId);
+            }
+
+            let user_info = {{ user_info }}
+            console.log(user_info);
+        });
+
+        function search_list(id) {
+            let query = $('#'+id).val();
+
+            if(!query){
+                query = $('#'+id).text();
+                query = query.substr(1);
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "/search?q=" + query,
+                data: {},
+                success: function (response) { // 성공하면
+                    yt_idx = 0;
+                    //영상 정보 가져오기
+                    list = response['list']['items'];
+                    {#console.log(response['list']);#}
+                    list.sort(() => Math.random() - 0.5);
+                    if (list && list.length > 0) {
+                        {#console.log("총 영상 개수 : " + list.length);#}
+                        isPlay=true;
+                        nextVideo();
+
+                        $('#youtube-playlist').empty();
+                        $('#youtube-movie').show();
+                        $('#like').hide();
+                        $('#comments').hide();
+                    }
+                }
+            })
+        }
+
+        function onPlayerReady(event) {
+            if(isPlay && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none'){
+                nextVideo();
+            }
+            event.target.playVideo();
+        }
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                nextVideo();
+            }
+        }
+        function onError(event) {
+            console.log("에러났다!");
+            yt_idx++;
+            nextVideo();
+        }
+
+        function nextVideo() {
+            if(!isPlay){
+                return;
+            }
+
+            if (yt_idx >= list.length) {
+            }else if (list[yt_idx]['id']['kind'] != 'youtube#video'){
+                {#console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "#}
+                {#    + list[yt_idx]['id']['kind']);#}
+                while (++yt_idx < list.length && list[yt_idx]['id']['kind'] != 'youtube#video') {
+                    {#console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "#}
+                    {#+ list[yt_idx]['id']['kind']);#}
+                }
+            }else if (list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
+                {#console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "#}
+                {#        + list[yt_idx]['snippet']['liveBroadcastContent']);#}
+                while (++yt_idx < list.length && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
+                    {#console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "#}
+                    {#    + list[yt_idx]['snippet']['liveBroadcastContent']);#}
+                }
+            }
+
+            {#console.log("현재 idx : " + yt_idx);#}
+
+            if (yt_idx >= list.length) {
+                {#console.log("영상 끝! 처음부터!");#}
+                yt_idx = 0;
+            }
+
+            player.loadVideoById(list[yt_idx]['id']['videoId'], 0, "large");
+            $('#author').text(list[yt_idx]['snippet']['channelTitle']);
+            $('#title').text(list[yt_idx]['snippet']['title']);
+
+            yt_idx++;
+        }
+
+        function play_playlist(id){
+            let temp_html = `<iframe id="youtube"
+                width="690px" height="388px"
+                src="https://www.youtube.com/embed/videoseries?list=${id}&autoplay=1&loop=1"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>`;
+
+            $('#youtube-movie').hide();
+            $('#like').show();
+            $('#comments').show();
+            $('#youtube-playlist').empty();
+            $('#youtube-playlist').append(temp_html);
+        }
+    </script>
+</head>
+<body>
+    <div class="Background">
+        <div class="main">
+            <div class="TopTag">
+                {% for toptag in toptags %}
+                    <span id="{{ toptag }}" class="Btn" onclick="search_list('{{ toptag }}')">#{{ toptag }}</span>
+                {% endfor %}
+            </div>
+            <div class="Align_center">
+                <div class="Search item">
+                    <input id="query" type="text" class="Search_input"/>
+                    <div class="Search_icon">#</div>
+                    <img onclick="search_list('query')" src="../static/search.png" class="Search_btn Btn">
+                </div>
+                <div class="Youtube item">
+                    <div id="youtube-movie" class="item">
+                        <script>
+                            let video = `<script src = 'https://www.youtube.com/iframe_api'/>`;
+                            $('#youtube-movie').append(video);
+
+                            let player;
+
+                            function onYouTubeIframeAPIReady() {
+                                player = new YT.Player('youtube-movie', {
+                                    height: '388px',
+                                    width: '690px',
+                                    videoId: 'M7lc1UVf-VE',
+                                    events: {
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange,
+                                        'onError': onError
+                                    }
+                                });
+                            }
+                        </script>
+                    </div>
+
+                    <div id="youtube-playlist" class="item">
+                    </div>
+                </div>
+                <div id="like" class="Like item">
+                    {% for like in likes %}
+                    <div class="Like_user Like_text Btn">{{ like['id'] }} love this playlist</div>
+                    {% endfor %}
+                    {% if likes_cnt > 0 %}
+                    <div class="Like_other Like_text Btn">+{{ likes_cnt }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="Playlist Btn" onclick="nextVideo()">
+                <div id="author" class="Author">I am Kim</div>
+                <div id="title" class="Title">This is Title.</div>
+                <img class="Next_image" src="../static/next.png" />
+            </div>
+            <div id="comments" class="Comment">
+                <input type="text" class="Comment_input" placeholder="Write your comments here..."/>
+                <img onclick="search_list()" src="../static/comment.png" class="Comment_btn Btn">
+                <div class="Comments">
+                    {% for comment in comments %}
+                        {% set id = comment['id'] %}
+                        {% set content = comment['comment'] %}
+                    <div class="Comments_item">
+                        <div class="Comments_thumbnail"></div>
+                        <div class="Comment_frame">
+                            <div class="Comments_name">{{ id }}</div>
+                            <hr class="Comments_hr">
+                            <div class="Comments_content">{{ content }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
