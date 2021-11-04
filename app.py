@@ -37,48 +37,64 @@ def get_user_info():
 # HTML을 주는 부분
 @app.route('/')
 def home():
-    render_params = get_user_info()
-    return render_template('index.html', **render_params)
+    # 가장 많이 추가한 상위 3개의 태그 목록만 출력
+    top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
+    random.shuffle(top_tags)
+    top_tags_response = top_tags[:3]
+
+    user_info = get_user_info()
+    return render_template('index.html',
+                           toptags=top_tags_response,
+                           **user_info)
 
 
 @app.route('/index')
 def index():
-    render_params = get_user_info()
-    return render_template('index.html', **render_params)
+    # 가장 많이 추가한 상위 3개의 태그 목록만 출력
+    top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
+    random.shuffle(top_tags)
+    top_tags_response = top_tags[:3]
+
+    user_info = get_user_info()
+    return render_template('index.html',
+                           toptags=top_tags_response,
+                           **user_info)
 
 
 @app.route('/login')
 def login():
-    render_params = get_user_info()
-    return render_template('login.html')
+    user_info = get_user_info()
+    return render_template('login.html', **user_info)
 
 
 @app.route('/agreement', methods=['GET'])
 def agreement():
-    render_params = get_user_info()
-    return render_template('agreement.html', **render_params)
+    user_info = get_user_info()
+    return render_template('agreement.html', **user_info)
 
 
 @app.route('/sign_up', methods=['GET'])
 def sign():
-    render_params = get_user_info()
-    return render_template('sign_up.html', **render_params)
+    user_info = get_user_info()
+    return render_template('sign_up.html', **user_info)
 
 
 @app.route('/randomplaylist')
 def play():
+    # 가장 많이 추가한 상위 3개의 태그 목록만 출력
     top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
     random.shuffle(top_tags)
     top_tags_response = top_tags[:3]
 
     playlistId_receive = request.args.get('playlistId')
 
-    likes = list(db.followlist.find({'playlistId': playlistId_receive}, {'_id': False}))
+    # 플레이리스트
+    likes = list(db.like_playlist.find({'playlistId': playlistId_receive}, {'_id': False}))
     likes_response = likes[:2]
     likes_cnt = len(likes) - 2
     comments = list(db.comment.find({'playlistId': playlistId_receive}, {'_id': False}))
 
-    render_params = get_user_info()
+    user_info = get_user_info()
 
     return render_template("randomplaylist.html",
                            playlistId=playlistId_receive,
@@ -86,10 +102,15 @@ def play():
                            likes=likes_response,
                            likes_cnt=likes_cnt,
                            comments=comments,
-                           **render_params)
+                           **user_info)
 
+
+@app.route('/modal')
+def modal():
+    return render_template('modal.html')
 
 # API 역할을 하는 부분
+# login.html
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
     # 로그인
@@ -141,11 +162,12 @@ def check_dup2():
     return jsonify({'result': 'success', 'exists': exists})
 
 
+#randomplaylist.html
 @app.route('/search', methods=['GET'])
 def listing():
     query_receive = request.args.get('q')
 
-    # 키워드 검색 결과 받아오기
+    # 키워드 검색 결과 받아오기 ( Youtube Data Api 사용 )
     search_response = youtube.search().list(
         q=query_receive,
         order="viewCount",
@@ -172,14 +194,18 @@ def search_playlist():
 
     return jsonify({'list': search_response})
 
+
+#modal.html
 @app.route('/insert_playlist', methods=['POST'])
 def insert_playlist():
     playlistId_receive = request.form['playlistId_give']
     title_receive = request.form['title_give']
     id_receive = request.form['id_give']
 
+    # 1. 이미 등록한 플레이리스트인지 확인
     playlist = db.user_playlist.find_one({'playlistId': playlistId_receive, 'id': id_receive})
 
+    # 2. 유효한 playlistId인지 확인(Youtube Data Api 사용)
     search_response = youtube.playlists().list(
         id=playlistId_receive,
         part="snippet"
@@ -187,20 +213,22 @@ def insert_playlist():
 
     thumbnail = ''
 
+    msg = 'Hi!'
+
     if search_response is not None:
         thumbnail = search_response['items'][0]['snippet']['thumbnails']['high']['url']
 
-    msg = 'Hi!'
-
-    if playlist is None:
-        doc = {'id': id_receive,
-               'title': title_receive,
-               'playlistId': playlistId_receive,
-               'thumbnail': thumbnail}
-        db.user_playlist.insert_one(doc)
-        msg = '작성 완료!'
+        if playlist is None:
+            doc = {'id': id_receive,
+                   'title': title_receive,
+                   'playlistId': playlistId_receive,
+                   'thumbnail': thumbnail}
+            db.user_playlist.insert_one(doc)
+            msg = '작성 완료!'
+        else:
+            msg = '작성 실패! 이미 등록한 재생목록입니다.'
     else:
-        msg = '작성 실패! 이미 등록한 재생목록입니다.'
+        msg = '작성 실패! 잘못된 재생목록입니다.'
 
     return jsonify({'msg': msg})
 

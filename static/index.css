@@ -55,7 +55,7 @@ html, body {
     background-color: #0ba983;
 }
 
-.Happy-chrismas {
+.Happy-christmas {
     width: 14.2%;
     height: 4.2%;
     flex-grow: 0;
@@ -183,15 +183,15 @@ html, body {
 
 .Tag {
     width: 11.3%;
-    height: 3.6%;
+    height: 30px;
     position: relative;
     flex-grow: 0;
     display: block;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 5%;
-    border: transparent;
+    border-radius: 50px;
+    border: 2px solid rgba(254, 89, 85, 0.5);
     font-size: 100%;
     font-family: 'Noto Sans', sans-serif;
     font-weight: bold;
@@ -200,7 +200,6 @@ html, body {
     box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
     background-color: #fe5955;
     text-align: center;
-
 }
 
 .wrap {
@@ -308,6 +307,9 @@ h1 {
     width:50%;
 }
 .Headphones_img {
+    position:absolute;
+    top:10;
+    right:0;
     width: 620px;
     height: 513px;
     margin: 115px 0 0;
@@ -323,9 +325,7 @@ h1 {
     width: 1008px;
     height: 768px;
     margin: 0 0 0 57px;
-    padding: 28px 0 72px 388px;
     object-fit: contain;
-    transform: rotate(-270deg);
 
     background-image: url('../static/tada.webp');
     background-size: cover;

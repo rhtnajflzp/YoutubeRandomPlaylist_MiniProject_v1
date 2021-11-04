@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     if (id != '') {
         //로그인 정보
-        $('#__modal__').load("/modal.html");
+        $('#__modal__').load("/modal");
     }
 });
 
@@ -30,12 +30,19 @@ function get_query() {
     return result;
 }
 
-function search_list(id) {
-    let query = $('#' + id).val();
+function search_list(tag_name) {
+    let query = $('#' + tag_name).val();
 
     if (!query) {
-        query = $('#' + id).text();
-        query = query.substr(1);
+        query = $('#' + tag_name).text();
+        query = query.split('#');
+        if(query.length>0){
+            query = query[query.length - 1];
+        }else{
+            query = query[0];
+        }
+        $('#query').empty();
+        $('#query').val(query);
     }
 
     play_movie(query);

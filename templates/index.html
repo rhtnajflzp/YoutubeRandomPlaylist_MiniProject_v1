@@ -22,30 +22,13 @@
     <title>Youtube Random Player</title>
 
     <link rel="stylesheet" href="../static/index.css"/>
+    <script src="../static/index.js"></script>
 
 
     <script>
         let id = "{{ id }}";
         let nickname = "{{ nickname }}";
-
-        $(document).ready(function () {
-            if(id!=""){
-                // 로그인 정보 삽입
-            }
-        });
-
-        function search_list() {
-            let query = $('#query').val()
-            window.location.href = '/randomplaylist?q=' + query;
-        }
-
-        function logout(){
-            $.removeCookie('mytoken', {path: '/'});
-            console.log('로그아웃 처리');
-        }
     </script>
-
-
 </head>
 <body>
 
@@ -81,27 +64,31 @@
             <div class="LeftContents">
                 <div class="Center">
                     <div>
-                        <div class="Happy-chrismas">Happy chrismas</div>
+                        <div class="Happy-christmas">Happy christmas</div>
                         <div class="What-mood-are-you-in">What mood are you in?</div>
                     </div>
                     <div class="Search">
                         <div class="Search item">
                             <input id="query" type="text" class="Search_input"/>
                             <div class="Search_icon">#</div>
-                            <img onclick="search_list()" src="../static/search.png" class="Search_btn Btn">
+                            <img onclick="search_list('query')" src="../static/search.png" class="Search_btn Btn">
                         </div>
                     </div>
                     <div class="wrap">
-                        <button type="button" class="Tag">#mukbang</button>
-                        <button type="button" class="Tag">#mukbang</button>
-                        <button type="button" class="Tag">#mukbang</button>
+                        {% for toptag in toptags %}
+                            <span id="{{ toptag }}" class="Tag" style="cursor:pointer;"
+                                  onclick="search_list('{{ toptag }}')">
+                                    #{{ toptag }}
+                            </span>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             <div>
                 <div class="RightPic">
-                    <div class="Headphones_img"></div>
-                    <div class="Tada_img"></div>
+                    <div class="Tada_img">
+                        <div class="Headphones_img"></div>
+                    </div>
                 </div>
             </div>
         </div>
