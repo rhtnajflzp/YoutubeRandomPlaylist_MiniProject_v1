@@ -17,31 +17,7 @@
     <title>Youtube Random Player</title>
 
     <link rel="stylesheet" href="../static/feed.css">
-    <script>
-        $(document).ready(function () {
-            $('#__header__').load('/header');
-            $('#__modal__').load('/modal');
-        });
-
-        function playlist(playlistId, userId){
-            location.href = "/randomplaylist?playlistId=" + playlistId + "&author=" + userId;
-        }
-
-        function tag_insert(){
-            let tag = $('#tag-content').val();
-
-            $.ajax({
-                type: "POST",
-                url: "/tag/insert",
-                data: {
-                    'tag_give': tag
-                },
-                success: function (response) { // 성공하면
-                    window.location.reload();
-                }
-            })
-        }
-    </script>
+    <script src="../static/feed.js"></script>
 </head>
 <body>
     <div id="__header__"></div>
@@ -53,17 +29,20 @@
                 <span class="icon is-medium is-left">
                         <i class="fas fa-envelope"></i>
                 </span>
-                <a href="javascript:void(0);" onclick="tag_insert()">
-                    <span class="icon is-medium is-right">
-                            <div class="search-button">+</i>
-                    </span>
-                </a>
+                <span class="icon is-medium is-right">
+                        <div class="search-button">+</div>
+                </span>
             </div>
         </div>
         <div class="searchTag columns is-0 is-multiline is-desktop">
             {% for tag in tags %}
                 <div class="column is-one-fifth">
-                    <button id="{{ tag['tag'] }}" type="button" class="Tag">#{{ tag['tag'] }}</button>
+                    <button id="{{ tag['tag'] }}"
+                            type="button"
+                            class="Tag Btn"
+                            onclick="search_list('{{ tag['tag'] }}')">
+                        #{{ tag['tag'] }}
+                    </button>
                 </div>
             {% endfor %}
         </div>
@@ -86,7 +65,7 @@
                     {% for like_playlist in like_playlists %}
                         <div class="column is-one-third">
                             <div class="card-image Btn"
-                                 onclick="playlist('{{ like_playlist['playlistId'] }}', '{{ like_playlist['auther'] }}')">
+                                 onclick="playlist('{{ like_playlist['playlistId'] }}', '{{ like_playlist['author'] }}')">
                                 <figure class="image is-4by3">
                                     <img src="{{ like_playlist['thumbnail'] }}"
                                          alt="Placeholder image">
