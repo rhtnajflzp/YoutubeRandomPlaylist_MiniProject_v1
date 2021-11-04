@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="../static/login.css">
 
     <script>
-        // {% if msg %}
-        //     alert("{{ msg }}")
-        // {% endif %}
         function sign_in() {
             let id = $("#input-id").val()
             let password = $("#input-password").val()
@@ -55,9 +52,8 @@
                     password_give: password
                 },
                 success: function (response) {
-                    console.log(response['result'] == 'success')
                     if (response['result'] == 'success') {
-                        $.cookie('mytoken', response['token'], {path: '/login'});
+                        $.cookie('mytoken', response['token'], {path: '/'});
                         window.location.replace("/")
                     } else {
                         alert(response['msg'])

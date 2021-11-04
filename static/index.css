@@ -11,7 +11,6 @@ html, body {
     height: 100%;
     flex-grow: 0;
     background-color: #381feb;
-    background-image: url('img/image-1.png');
     background-size: 73.8% 100%;
     background-position: right;
     background-repeat: no-repeat;
@@ -128,19 +127,58 @@ html, body {
     width: 94.5%;
     height: 66.8%;
     margin: 10% 0 0 5.5%;
-    background-image: url('img/Headphones-1.png');
     background-size: 50% 61%;
     background-position: right top;
     background-repeat: no-repeat;
 }
 
 .Search {
-    width: 46.6%;
-    height: 6.1%;
     position: relative;
-    margin-top: 3%;
-    display: flex;
+    margin: 27px 0 46px 0;
+    z-index:5;
+}
+.Search_input {
+    width: 693px;
+    height: 56px;
+    flex-grow: 0;
+    padding: 20px 50px 20px 90px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fff;
+}
+.Search_icon {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 74px;
+    height: 45px;
+    flex-grow: 0;
+    padding: 9px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
 
+    font-family: Roboto;
+    font-size: 44px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.64;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.Search_btn {
+    position: absolute;
+    left: 650px;
+    top: 15px;
+
+    width: 25px;
+    height: 22px;
+}
+.Btn{
+    cursor: pointer;
 }
 
 .Tag {
@@ -183,7 +221,7 @@ html, body {
 
 .Random-Playlist {
     size: auto;
-    font-family: 'Noto Sans', sans-serif
+    font-family: 'Noto Sans', sans-serif;
     font-size: 20.9pt;
     font-weight: bold;
     font-stretch: normal;
@@ -222,7 +260,7 @@ html, body {
     width: 122px;
     height: 24px;
     flex-grow: 0;
-    font-family: 'Noto Sans', sans-serif
+    font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     font-weight: 900;
     font-stretch: normal;
@@ -255,27 +293,8 @@ h1 {
   font-size: 70px;
 }
 
-
-img.image-1 {
-
-    width: 250%;
-    height: auto;
-    margin: -400px 0 0 57px;
-    padding: 28px 0 72px 388px;
-    object-fit: contain;
-    transform: rotate(-270deg);
-    z-index: 0;
-}
-
-img.Headphones-1 {
-    width: 100%;
-    height: auto;
-    margin: -600px 0 0;
-    object-fit: contain;
-    z-index: 1;
-}
 .LeftContents {
- position:absolute;a
+ position:absolute;
     top:50%;
     left:0;
     width:110%;
@@ -283,11 +302,33 @@ img.Headphones-1 {
 }
 
 .RightPic{
-position:absolute;
+    position:absolute;
     top: 0;
     right:0;
     width:50%;
-    z-index: 2;
+}
+.Headphones_img {
+    width: 620px;
+    height: 513px;
+    margin: 115px 0 0;
+    object-fit: contain;
+
+    background-image: url('../static/headphones.webp');
+    background-size: cover;
+}
+.Tada_img {
+    position:absolute;
+    top:0;
+    right:0;
+    width: 1008px;
+    height: 768px;
+    margin: 0 0 0 57px;
+    padding: 28px 0 72px 388px;
+    object-fit: contain;
+    transform: rotate(-270deg);
+
+    background-image: url('../static/tada.webp');
+    background-size: cover;
 }
 
 .FrameA{

@@ -1,7 +1,6 @@
 from googleapiclient.discovery import build
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from pymongo import MongoClient
-from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 import random
 import jwt
@@ -20,58 +19,54 @@ api_key = 'AIzaSyDoc0GN-_nBuANpy8f893HDttg71tF5szs'
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 
-# HTML을 주는 부분
-@app.route('/')
-def home():
+def get_user_info():
     token_receive = request.cookies.get('mytoken')
+    render_params = {}
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"id": payload["id"]})
-        return render_template('index.html', user_info=user_info)
+        render_params = user_info
     except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        render_params['msg'] = '로그인 시간이 만료되었습니다.'
     except jwt.exceptions.DecodeError:
-        return redirect(url_for("index", msg="로그인 정보가 존재하지 않습니다."))
+        render_params['msg'] = '로그인 정보가 존재하지 않습니다..'
+    finally:
+        return render_params
+
+
+# HTML을 주는 부분
+@app.route('/')
+def home():
+    render_params = get_user_info()
+    return render_template('index.html', **render_params)
 
 
 @app.route('/index')
 def index():
-    msg = request.args.get("msg")
-    return render_template('index.html', msg=msg)
+    render_params = get_user_info()
+    return render_template('index.html', **render_params)
 
 
 @app.route('/login')
 def login():
-    msg = request.args.get("msg")
-    return render_template('login.html', msg=msg)
+    render_params = get_user_info()
+    return render_template('login.html')
 
 
 @app.route('/agreement', methods=['GET'])
 def agreement():
-    msg = request.args.get("msg")
-    return render_template('agreement.html', msg=msg)
+    render_params = get_user_info()
+    return render_template('agreement.html', **render_params)
 
 
 @app.route('/sign_up', methods=['GET'])
 def sign():
-    msg = request.args.get("msg")
-    return render_template('sign_up.html', msg=msg)
+    render_params = get_user_info()
+    return render_template('sign_up.html', **render_params)
 
 
 @app.route('/randomplaylist')
 def play():
-    token_receive = request.cookies.get('mytoken')
-    user_info = ''
-    login = ''
-
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload["id"]})
-    except jwt.ExpiredSignatureError:
-        login="로그인 시간이 만료되었습니다."
-    except jwt.exceptions.DecodeError:
-        login = "로그인 정보가 존재하지 않습니다."
-
     top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
     random.shuffle(top_tags)
     top_tags_response = top_tags[:3]
@@ -83,8 +78,7 @@ def play():
     likes_cnt = len(likes) - 2
     comments = list(db.comment.find({'playlistId': playlistId_receive}, {'_id': False}))
 
-    print(user_info + "//")
-    print(login)
+    render_params = get_user_info()
 
     return render_template("randomplaylist.html",
                            playlistId=playlistId_receive,
@@ -92,8 +86,7 @@ def play():
                            likes=likes_response,
                            likes_cnt=likes_cnt,
                            comments=comments,
-                           user_info=user_info,
-                           login=login)
+                           **render_params)
 
 
 # API 역할을 하는 부분
@@ -178,6 +171,38 @@ def search_playlist():
     ).execute()
 
     return jsonify({'list': search_response})
+
+@app.route('/insert_playlist', methods=['POST'])
+def insert_playlist():
+    playlistId_receive = request.form['playlistId_give']
+    title_receive = request.form['title_give']
+    id_receive = request.form['id_give']
+
+    playlist = db.user_playlist.find_one({'playlistId': playlistId_receive, 'id': id_receive})
+
+    search_response = youtube.playlists().list(
+        id=playlistId_receive,
+        part="snippet"
+    ).execute()
+
+    thumbnail = ''
+
+    if search_response is not None:
+        thumbnail = search_response['items'][0]['snippet']['thumbnails']['high']['url']
+
+    msg = 'Hi!'
+
+    if playlist is None:
+        doc = {'id': id_receive,
+               'title': title_receive,
+               'playlistId': playlistId_receive,
+               'thumbnail': thumbnail}
+        db.user_playlist.insert_one(doc)
+        msg = '작성 완료!'
+    else:
+        msg = '작성 실패! 이미 등록한 재생목록입니다.'
+
+    return jsonify({'msg': msg})
 
 
 @app.route('/tag', methods=['GET'])

@@ -1,0 +1,88 @@
+#modal {
+    display: none;
+}
+
+#modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 100;
+}
+
+#modal .modal-window {
+    background: white;
+    box-shadow: 0 0 32px 0 rgba(234, 234, 234, 0.6);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 400px;
+    height: 500px;
+    position: relative;
+    top: -100px;
+}
+
+#modal .title {
+    padding-left: 10px;
+    display: inline;
+    text-shadow: 1px 1px 1px black;
+}
+
+#modal .title h3 {
+    display: inline;
+}
+
+.Title_img {
+    width: 35px;
+    height: 35px;
+}
+
+#modal .content {
+    margin-top: 20px;
+}
+
+.content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.Input {
+    width: 360px;
+    height: 40px;
+    flex-grow: 0;
+    padding: 5px 10px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    background-color: #fff;
+    margin: 0 0 20px 0;
+
+    border: 1px solid rgba(0, 0, 0, 0.18)
+}
+
+.Post_btn {
+    width: 100px;
+    height: 35px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    background-color: #6666FF;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.5;
+    cursor: pointer;
+}

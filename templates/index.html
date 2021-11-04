@@ -25,30 +25,23 @@
 
 
     <script>
-        let yt_idx = 0;
-        let list;
+        let id = "{{ id }}";
+        let nickname = "{{ nickname }}";
 
         $(document).ready(function () {
-
+            if(id!=""){
+                // 로그인 정보 삽입
+            }
         });
 
         function search_list() {
             let query = $('#query').val()
+            window.location.href = '/randomplaylist?q=' + query;
+        }
 
-            $.ajax({
-                type: "GET",
-                url: "/search?q=" + query,
-                data: {},
-                success: function (response) { // 성공하면
-                    //영상 정보 가져오기
-                    list = response['list']['items'];
-
-                    console.log(response);
-                    if (list && list.length > 0) {
-                        console.log(list);
-                    }
-                }
-            })
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            console.log('로그아웃 처리');
         }
     </script>
 
@@ -58,7 +51,6 @@
 
 <div class="master">
     <div class="Frame-3">
-
         <nav class="navbar navbar-expand-lg navbar-custom bg-none">
             <a class="Random-Playlist navbar-brand" href="#">Random Playlist</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -82,8 +74,8 @@
                             <a style="color: white" class="nav-link" href="#">Entertainment</a>
                         </li>
                     </div>
+                </ul>
             </div>
-
         </nav>
         <div class="FrameA">
             <div class="LeftContents">
@@ -93,13 +85,10 @@
                         <div class="What-mood-are-you-in">What mood are you in?</div>
                     </div>
                     <div class="Search">
-                        <div class="input-group mb-3 input-box">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">#</span>
-                            </div>
-                            <input id="query" type="text" class="form-control" aria-label="Default"
-                                   aria-describedby="inputGroup-sizing-default">
-                            <button onclick="search_list()" type="button" class="btn btn-primary">🔍</button>
+                        <div class="Search item">
+                            <input id="query" type="text" class="Search_input"/>
+                            <div class="Search_icon">#</div>
+                            <img onclick="search_list()" src="../static/search.png" class="Search_btn Btn">
                         </div>
                     </div>
                     <div class="wrap">
@@ -107,24 +96,13 @@
                         <button type="button" class="Tag">#mukbang</button>
                         <button type="button" class="Tag">#mukbang</button>
                     </div>
-
-
                 </div>
-
             </div>
             <div>
-                <div class="search">
-
-                </div>
                 <div class="RightPic">
-
-                    <img src="../static/image 1.webp"
-                         class="image-1">
-
-                    <img src="../static/Headphones 1.webp"
-                         class="Headphones-1">
+                    <div class="Headphones_img"></div>
+                    <div class="Tada_img"></div>
                 </div>
-
             </div>
         </div>
     </div>
