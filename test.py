@@ -32,3 +32,24 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 #     ])
 #
 # print(test)
+
+doc = {'id': 'master', 'tag': 'jazz'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'pop'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'rock'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'kpop'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'jpop'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'classic'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'twitch_streamer'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'mukbang'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'dance'}
+db.tag.insert_one(doc)
+doc = {'id': 'master', 'tag': 'hiphop'}
+db.tag.insert_one(doc)

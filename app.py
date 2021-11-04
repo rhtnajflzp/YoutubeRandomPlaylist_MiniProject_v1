@@ -90,8 +90,8 @@ def play():
     playlistId_receive = request.args.get('playlistId')
     author_receive = request.args.get('author')
 
-    # 플레이리스트
-    likes = list(db.like_playlist.find({'playlistId': playlistId_receive}, {'_id': False}))
+    # 좋아요 개수
+    likes = list(db.like_playlist.find({'author': author_receive, 'playlistId': playlistId_receive}, {'_id': False}))
     likes_response = likes[:2]
     likes_cnt = len(likes) - 2
 
@@ -100,12 +100,25 @@ def play():
 
     user_info = get_user_info()
 
+    user_info = get_user_info()
+    if 'id' not in user_info:
+        islike = False
+    else:
+        # 좋아요 여부
+        likes2 = list(db.like_playlist.find({'id': user_info['id'], 'playlistId': playlistId_receive}, {'_id': False}))
+
+        if likes2:
+            islike = True
+        else:
+            islike = False
+
     return render_template("randomplaylist.html",
                            playlistId=playlistId_receive,
                            toptags=top_tags_response,
                            likes=likes_response,
                            likes_cnt=likes_cnt,
                            comments=comments,
+                           islike=islike,
                            **user_info)
 
 
@@ -300,9 +313,12 @@ def tag_insert():
 
 @app.route('/tag/delete', methods=['POST'])
 def tag_delete():
-    id_receive = request.form['id_give']
+    user_info = get_user_info()
+    if 'id' not in user_info:
+        return jsonify({'msg': "유효하지 않은 회원입니다."})
+
     tag_receive = request.form['tag_give']
-    db.tag.delete_one({'id': id_receive, 'tag': tag_receive})
+    db.tag.delete_one({'id': user_info['id'], 'tag': tag_receive})
     return jsonify({'msg': '삭제 완료!'})
 
 
@@ -368,10 +384,6 @@ def comment_delete():
     return jsonify({'msg': '삭제 완료!'})
 
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
-
-
 @app.route('/user/playlist', methods=['GET'])
 def user_playlist():
     id_receive = request.args.get('id_give')
@@ -379,41 +391,35 @@ def user_playlist():
     return jsonify({'playlist': playlistId})
 
 
-@app.route('/user/likelist', methods=['GET'])
-def user_likelist():
-    id_receive = request.form['id_give']
-    likelistId = list(db.like_playlist.find({'id': id_receive}, {'_id': False}))
-    return jsonify({'playlist': likelistId})
-
-
-@app.route('/user/like', methods=['POST'])
+@app.route('/likelist', methods=['POST'])
 def user_like():
-    id_receive = request.form['id_give']  # 클라이언트에서 좋아요 와 작성자의 정보를 POST에 넘겨 줌
+    user_info = get_user_info()
+    if 'id' not in user_info:
+        return jsonify({'msg': "유효하지 않은 회원입니다."})
+
     author_receive = request.form['author_give']
-    likelistId_receive = request.form['likelistId_give']  # 좋아요를 눌렀는지 판단??
+    playlistId_receive = request.form['playlistId_give']
+    print(author_receive, playlistId_receive)
+    like_playlist = db.like_playlist.find_one({'id': user_info['id'],
+                                               'author': author_receive,
+                                               'playlistId': playlistId_receive})
 
-    like_playlist = db.like_playlist.find_one({'id': id_receive, 'author': author_receive})
+    thumbnail = db.user_playlist.find_one({'id': author_receive, 'playlistId': playlistId_receive},
+                                          {'thumbnail': True})
 
-    like_response = youtube.playlists().list(
-        id=likelistId_receive,
-        part="snippet"
-    ).execute()
+    doc = {'id': user_info['id'],
+           'author': author_receive,
+           'playlistId': playlistId_receive,
+           'thumbnail': thumbnail['thumbnail']}
 
-    thumbnail = ''
-
-    if like_response is not None:
-        thumbnail = like_response['items'][0]['snippet']['thumbnails']['high']['url']
-
-        if like_playlist is None:
-            doc = {'id': id_receive,
-                   'author': author_receive,
-                   'likelistId': likelistId_receive,
-                   'thumbnail': thumbnail}
-            db.user_playlist.insert_one(doc)
-            msg = '작성 완료!'
-        else:
-            msg = '작성 실패! 이미 등록한 재생목록입니다.'
+    if like_playlist is None:
+        db.like_playlist.insert_one(doc)
+        msg = '작성 완료!'
     else:
-        msg = '작성 실패! 잘못된 재생목록입니다.'
+        db.like_playlist.delete_one(doc)
+        msg = '삭제 완료!'
 
     return jsonify({'msg': msg})
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)

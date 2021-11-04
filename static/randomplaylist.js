@@ -6,21 +6,42 @@ $(document).ready(function () {
 
     if (playlistId) {
         play_playlist(playlistId);
+        $('#like').show();
     }
 
     let query = parameters['q'];
+
     if (query) {
-        play_movie(query);
-        $('#query').val(query);
+        setTimeout(() => {
+            play_movie(query);
+            $('#query').val(query);
+        }, 1000);
     }
 
-    console.log(id);
     if (id != '') {
         //로그인 정보
-        console.log('로그인완료');
         $('#__modal__').load("/modal");
     }
 });
+
+function onPlayerReady(event) {
+    if (isPlay && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
+        nextVideo();
+    }
+    event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.ENDED) {
+        nextVideo();
+    }
+}
+
+function onError(event) {
+    console.log("에러났다!");
+    yt_idx++;
+    nextVideo();
+}
 
 function get_query() {
     let url = document.location.href;
@@ -60,7 +81,7 @@ function play_movie(query) {
             yt_idx = 0;
             //영상 정보 가져오기
             list = response['list']['items'];
-            //console.log(response['list']);
+            console.log(response['list']);
             list.sort(() => Math.random() - 0.5);
             if (list && list.length > 0) {
                 //console.log("총 영상 개수 : " + list.length);
@@ -77,25 +98,6 @@ function play_movie(query) {
     })
 }
 
-function onPlayerReady(event) {
-    if (isPlay && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
-        nextVideo();
-    }
-    event.target.playVideo();
-}
-
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.ENDED) {
-        nextVideo();
-    }
-}
-
-function onError(event) {
-    console.log("에러났다!");
-    yt_idx++;
-    nextVideo();
-}
-
 function nextVideo() {
     if (!isPlay) {
         return;
@@ -103,22 +105,22 @@ function nextVideo() {
 
     if (yt_idx >= list.length) {
     } else if (list[yt_idx]['id']['kind'] != 'youtube#video') {
-        //console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "
+        // console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "
         //    + list[yt_idx]['id']['kind']);
         while (++yt_idx < list.length && list[yt_idx]['id']['kind'] != 'youtube#video') {
-            //    console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "
-            //    + list[yt_idx]['id']['kind']);
+               // console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "
+               // + list[yt_idx]['id']['kind']);
         }
     } else if (list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
-        //console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "
+        // console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "
         //        + list[yt_idx]['snippet']['liveBroadcastContent']);
         while (++yt_idx < list.length && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
-            //    console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "
-            //        + list[yt_idx]['snippet']['liveBroadcastContent']);
+               // console.log("Error! this is broadcast movie. current broadcast category : IDX " + yt_idx + " / "
+               //     + list[yt_idx]['snippet']['liveBroadcastContent']);
         }
     }
 
-    //console.log("현재 idx : " + yt_idx);
+    // console.log("현재 idx : " + yt_idx);
 
     if (yt_idx >= list.length) {
         //console.log("영상 끝! 처음부터!");
@@ -126,6 +128,7 @@ function nextVideo() {
     }
 
     player.loadVideoById(list[yt_idx]['id']['videoId'], 0, "large");
+
     $('#author').text(list[yt_idx]['snippet']['channelTitle']);
     $('#title').text(list[yt_idx]['snippet']['title']);
 
@@ -188,6 +191,25 @@ function insert_comment(){
             'author_give': author
         },
         success: function (response) { // 성공하면
+            window.location.reload();
+        }
+    })
+}
+
+function like_playlist(){
+    let parameters = get_query();
+    let playlistId = parameters['playlistId'];
+    let author = parameters['author'];
+
+    $.ajax({
+        type: "POST",
+        url: "/likelist",
+        data: {
+            'author_give': author,
+            'playlistId_give': playlistId
+        },
+        success: function (response) { // 성공하면
+            console.log(response['msg']);
             window.location.reload();
         }
     })
