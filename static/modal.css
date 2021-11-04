@@ -40,7 +40,7 @@
     display: inline;
 }
 
-.Title_img {
+#modal .Title_img {
     width: 35px;
     height: 35px;
 }
@@ -49,14 +49,14 @@
     margin-top: 20px;
 }
 
-.content {
+#modal .content {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.Input {
+#modal .Input {
     width: 360px;
     height: 40px;
     flex-grow: 0;
@@ -69,7 +69,7 @@
     border: 1px solid rgba(0, 0, 0, 0.18)
 }
 
-.Post_btn {
+#modal .Post_btn {
     width: 100px;
     height: 35px;
     box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
@@ -81,4 +81,10 @@
     font-size: 20px;
     line-height: 1.5;
     cursor: pointer;
+}
+
+#modal_wrap{
+    display:none;
+    width: 100%;
+    height: 100%;
 }

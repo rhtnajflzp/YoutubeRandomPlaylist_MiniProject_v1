@@ -24,6 +24,13 @@
     <link rel="stylesheet" href="../static/login.css">
     <script src="../static/login.js"></script>
 
+    <script>
+        let id = "{{ id }}"
+
+        if (id != '') {
+            window.location.replace('/');
+        }
+    </script>
 </head>
 <body>
 <section class="hero is-white">

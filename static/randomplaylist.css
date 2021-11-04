@@ -52,7 +52,7 @@
     margin: 27px 0 46px 0;
 }
 .Search_input {
-    width: 693px;
+    width: 951px;
     height: 56px;
     flex-grow: 0;
     padding: 20px 50px 20px 90px;
@@ -85,7 +85,7 @@
 }
 .Search_btn {
     position: absolute;
-    left: 650px;
+    right: -30px;
     top: 15px;
 
     width: 25px;

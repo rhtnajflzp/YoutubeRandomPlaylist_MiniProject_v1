@@ -1,10 +1,6 @@
-$(document).ready(function () {
-    $('#modal').hide();
-});
-
 $(document).mouseup(function (e) {
     if ($('#modal').has(e.target).length === 0) {
-        $('#modal').hide();
+        $('#modal_wrap').hide();
     }
 });
 
@@ -18,14 +14,14 @@ function post_playlist() {
 
     $.ajax({
         type: "POST",
-        url: "/insert_playlist",
+        url: "/playlist/insert",
         data: {
             'playlistId_give': playlistId[0],
-            'title_give': title,
-            'id_give': id
+            'title_give': title
         },
         success: function (response) { // 성공하면
-            alert('작성 완료!');
+            alert(response['msg']);
+            window.location.reload();
         }
     })
 }
