@@ -1,7 +1,3 @@
-#modal {
-    display: none;
-}
-
 #modal.modal-overlay {
     position: fixed;
     top: 0;

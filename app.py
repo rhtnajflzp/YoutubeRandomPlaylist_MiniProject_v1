@@ -316,11 +316,11 @@ def user_comment():
 def comment_insert():
     id_receive = request.form['id_give']
     comment_receive = request.form['comment_give']
-    videoId_receive = request.form['videoId_give']
+    playlistId_receive = request.form['playlistId_give']
 
     db.comment.insert_one({'id': id_receive,
                        'comment': comment_receive,
-                       'videoId': videoId_receive})
+                       'playlistId': playlistId_receive})
 
     return jsonify({'msg': '작성 완료!'})
 

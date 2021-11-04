@@ -142,3 +142,24 @@ function play_playlist(id) {
     $('#youtube-playlist').empty();
     $('#youtube-playlist').append(temp_html);
 }
+
+function insert_comment(){
+    let comment = $('#comment').val();
+
+    let parameters = get_query();
+    let playlistId = parameters['playlistId'];
+
+    $.ajax({
+        type: "POST",
+        url: "/comment/insert",
+        data: {
+            'id_give': id,
+            'comment_give': comment,
+            'playlistId_give': playlistId
+        },
+        success: function (response) { // 성공하면
+            alert(response["msg"]);
+            window.location.reload();
+        }
+    })
+}

@@ -19,13 +19,15 @@ db = client.youtuberandomplaylist
 api_key = 'AIzaSyDoc0GN-_nBuANpy8f893HDttg71tF5szs'
 youtube = build('youtube', 'v3', developerKey=api_key)
 
-doc = {'id':'test', 'playlistId':'PLguPqKADXoCEw_vJqW0VSNTKejjUAk2wY'}
-db.followlist.insert_one(doc)
-doc = {'id':'love', 'playlistId':'PLguPqKADXoCEw_vJqW0VSNTKejjUAk2wY'}
-db.followlist.insert_one(doc)
-doc = {'id':'tasty', 'playlistId':'PLguPqKADXoCEw_vJqW0VSNTKejjUAk2wY'}
-db.followlist.insert_one(doc)
-doc = {'id':'beauty', 'playlistId':'PLguPqKADXoCEw_vJqW0VSNTKejjUAk2wY'}
-db.followlist.insert_one(doc)
-doc = {'id':'king', 'playlistId':'PLguPqKADXoCEw_vJqW0VSNTKejjUAk2wY'}
-db.followlist.insert_one(doc)
+# test = db.users.aggregate([
+#         {
+#             '$lookup': {
+#                 'from': "inventory",
+#                 'localField': "item",
+#                 'foreignField': "sku",
+#                 'as': "inventory_docs"
+#             }
+#         }
+#     ])
+#
+# print(test)

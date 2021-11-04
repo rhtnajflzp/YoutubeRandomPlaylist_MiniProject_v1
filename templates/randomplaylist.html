@@ -65,7 +65,7 @@
                                 player = new YT.Player('youtube-movie', {
                                     height: '388px',
                                     width: '690px',
-                                    videoId: 'M7lc1UVf-VE',
+                                    videoId: 'ErPNkvLCDSQ',
                                     events: {
                                         'onReady': onPlayerReady,
                                         'onStateChange': onPlayerStateChange,
@@ -94,8 +94,8 @@
                 <img class="Next_image" src="../static/next.png" />
             </div>
             <div id="comments" class="Comment">
-                <input type="text" class="Comment_input" placeholder="Write your comments here..."/>
-                <img onclick="search_list()" src="../static/comment.png" class="Comment_btn Btn">
+                <input id="comment" type="text" class="Comment_input" placeholder="Write your comments here..."/>
+                <img onclick="insert_comment()" src="../static/comment.png" class="Comment_btn Btn">
                 <div class="Comments">
                     {% for comment in comments %}
                         {% set id = comment['id'] %}
