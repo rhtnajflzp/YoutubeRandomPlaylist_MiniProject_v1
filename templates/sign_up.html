@@ -24,6 +24,13 @@
     <link rel="stylesheet" href="../static/sign_up.css">
     <script src="../static/sign_up.js"></script>
 
+    <script>
+        let id = "{{ id }}"
+
+        if (id != '') {
+            window.location.replace('/');
+        }
+    </script>
 </head>
 <body>
 <section class="hero is-white">

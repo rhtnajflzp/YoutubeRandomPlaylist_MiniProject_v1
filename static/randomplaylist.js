@@ -1,6 +1,8 @@
 $(document).ready(function () {
+    $('#__header__').load("/header");
     let parameters = get_query();
     let playlistId = parameters['playlistId'];
+    $('#comments').hide();
 
     if (playlistId) {
         play_playlist(playlistId);
@@ -10,11 +12,12 @@ $(document).ready(function () {
     if (query) {
         play_movie(query);
         $('#query').val(query);
-        $('#comments').hide();
     }
 
+    console.log(id);
     if (id != '') {
         //로그인 정보
+        console.log('로그인완료');
         $('#__modal__').load("/modal");
     }
 });
@@ -66,6 +69,7 @@ function play_movie(query) {
 
                 $('#youtube-playlist').empty();
                 $('#youtube-movie').show();
+                $('#next-img').show();
                 $('#like').hide();
                 $('#comments').hide();
             }
@@ -128,19 +132,44 @@ function nextVideo() {
     yt_idx++;
 }
 
-function play_playlist(id) {
+function play_playlist(playlistId) {
     let temp_html = `<iframe id="youtube"
-                width="690px" height="388px"
-                src="https://www.youtube.com/embed/videoseries?list=${id}&autoplay=1&loop=1"
+                width="951px" height="533px"
+                src="https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1&loop=1"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>`;
 
     $('#youtube-movie').hide();
+    $('#next-img').hide();
     $('#like').show();
     $('#comments').show();
     $('#youtube-playlist').empty();
     $('#youtube-playlist').append(temp_html);
+
+    set_playlist_info();
+}
+
+function set_playlist_info(){
+    let parameters = get_query();
+    let playlistId = parameters['playlistId'];
+    let author = parameters['author'];
+
+    $.ajax({
+        type: "POST",
+        url: "/playlist/search",
+        data: {
+            'author_give': author,
+            'playlistId_give': playlistId
+        },
+        success: function (response) { // 성공하면
+            let playlist = JSON.parse(response['playlist']);
+            let nickname = JSON.parse(response['nickname']);
+
+            $('#author').text(nickname['nickname']);
+            $('#title').text(playlist['title']);
+        }
+    })
 }
 
 function insert_comment(){
@@ -148,17 +177,17 @@ function insert_comment(){
 
     let parameters = get_query();
     let playlistId = parameters['playlistId'];
+    let author  = parameters['author'];
 
     $.ajax({
         type: "POST",
         url: "/comment/insert",
         data: {
-            'id_give': id,
             'comment_give': comment,
-            'playlistId_give': playlistId
+            'playlistId_give': playlistId,
+            'author_give': author
         },
         success: function (response) { // 성공하면
-            alert(response["msg"]);
             window.location.reload();
         }
     })

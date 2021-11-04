@@ -54,7 +54,7 @@ function sign_up() {
         },
         success: function (response) {
             alert("회원가입을 축하드립니다!")
-            window.location.replace("/")
+            window.location.replace("/login")
         }
     });
 

@@ -19,14 +19,15 @@ db = client.youtuberandomplaylist
 api_key = 'AIzaSyDoc0GN-_nBuANpy8f893HDttg71tF5szs'
 youtube = build('youtube', 'v3', developerKey=api_key)
 
-# test = db.users.aggregate([
-#         {
+# test = db.users.aggregate([{
 #             '$lookup': {
-#                 'from': "inventory",
-#                 'localField': "item",
-#                 'foreignField': "sku",
-#                 'as': "inventory_docs"
-#             }
+#                 'from': 'user_playlist',
+#                 'let': {'playlistId': '$playlistId'},
+#                 'pipeline': [{'$match': {'$expr': {'$and': [{
+#                     '$eq': ["$id", 'test'],
+#                     '$eq': ['$$playlistId', 'PLguPqKADXoCFzOk-Do2tlXE-EkkquCXKR']
+#                 }]}}}],
+#                 'as': 'postdata'},
 #         }
 #     ])
 #

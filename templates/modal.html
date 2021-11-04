@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/modal.css">
     <script src="../static/modal.js"></script>
+    <script>
+        function modal_show(){
+            $('#modal_wrap').show();
+        }
+    </script>
 </head>
 <body>
-    <div id="modal" class="modal-overlay">
-        <div class="modal-window">
-            <div class="title">
-                <h3>Playlist Posting</h3>
-                <img src="../static/posting.png" class="Title_img"/>
-            </div>
-            <div class="content">
-                <input id="modal-url" type="text" class="Input" placeholder="URL"/>
-                <input id="modal-title" type="text" class="Input" placeholder="Title"/>
-                <div onclick="post_playlist()" class="Post_btn">Post</div>
+    <div id="modal_wrap">
+        <div id="modal" class="modal-overlay">
+            <div class="modal-window">
+                <div class="title">
+                    <h3>Playlist Posting</h3>
+                    <img src="../static/posting.png" class="Title_img"/>
+                </div>
+                <div class="content">
+                    <input id="modal-url" type="text" class="Input" placeholder="URL"/>
+                    <input id="modal-title" type="text" class="Input" placeholder="Title"/>
+                    <div onclick="post_playlist()" class="Post_btn">Post</div>
+                </div>
             </div>
         </div>
     </div>

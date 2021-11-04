@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#__header__').load("/header");
     if (id != "") {
         // 로그인 정보 삽입
     }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
+
+    <!-- bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../static/header.css">
+    <script src="../static/header.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if(window.location.pathname == '/index' ||
+                window.location.pathname == '/'){
+                $('#post-btn').hide();
+            }
+            let id = '{{id}}';
+            console.log(id);
+            if (!id) {
+                $('#btns').empty();
+                let temp_html = `
+                        <a class="button is-primary" onClick="login()">
+                            <strong>Login</strong>
+                        </a>
+                    `;
+
+                $('#btns').append(temp_html);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <nav id="navbar" class="navbar is-link" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/index">
+            <img src="../static/Logo_Name.PNG" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+
+        </div>
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons" id="btns">
+                <a class="button is-primary" onclick="feed()">
+                    <strong>FEED</strong>
+                </a>
+                <a id='post-btn' class="button is-light" onclick="post()">
+                    <strong>POST</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+</body>
+</html>
