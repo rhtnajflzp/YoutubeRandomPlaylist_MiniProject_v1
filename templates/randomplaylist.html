@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../static/randomplaylist.css">
+    <script src="../static/randomplaylist.js"></script>
+
+    <link rel="stylesheet" href="../static/modal.css">
+    <script src="../static/modal.js"></script>
+
+    <script>
+        let yt_idx = 0;
+        let list;
+        let isPlay = false;
+        let id = "{{ id }}";
+        let nickname = "{{ nickname }}";
+    </script>
+</head>
+<body>
+    <div class="Background">
+        <!-- header -->
+        <div id="__header__"></div>
+
+        <!-- contents -->
+        <div class="main">
+            <div class="TopTag">
+                {% for toptag in toptags %}
+                    <span id="{{ toptag }}" class="Btn" onclick="search_list('{{ toptag }}')">#{{ toptag }}</span>
+                {% endfor %}
+            </div>
+            <div class="Align_center">
+                <div class="Search item">
+                    <input id="query" type="text" class="Search_input"/>
+                    <div class="Search_icon">#</div>
+                    <img onclick="search_list('query')" src="../static/search.png" class="Search_btn Btn">
+                </div>
+                <div class="Youtube item">
+                    <div id="youtube-movie" class="item">
+                        <script>
+                            let video = `<script src = 'https://www.youtube.com/iframe_api'/>`;
+                            $('#youtube-movie').append(video);
+
+                            let player;
+
+                            function onYouTubeIframeAPIReady() {
+                                player = new YT.Player('youtube-movie', {
+                                    height: '388px',
+                                    width: '690px',
+                                    videoId: 'ErPNkvLCDSQ',
+                                    events: {
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange,
+                                        'onError': onError
+                                    }
+                                });
+                            }
+                        </script>
+                    </div>
+
+                    <div id="youtube-playlist" class="item">
+                    </div>
+                </div>
+                <div id="like" class="Like item">
+                    {% for like in likes %}
+                    <div class="Like_user Like_text Btn">{{ like['id'] }} love this playlist</div>
+                    {% endfor %}
+                    {% if likes_cnt > 0 %}
+                    <div class="Like_other Like_text Btn">+{{ likes_cnt }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="Playlist Btn" onclick="nextVideo()">
+                <div id="author" class="Author">I am Kim</div>
+                <div id="title" class="Title">This is Title.</div>
+                <img class="Next_image" src="../static/next.png" />
+            </div>
+            <div id="comments" class="Comment">
+                <input id="comment" type="text" class="Comment_input" placeholder="Write your comments here..."/>
+                <img onclick="insert_comment()" src="../static/comment.png" class="Comment_btn Btn">
+                <div class="Comments">
+                    {% for comment in comments %}
+                        {% set id = comment['id'] %}
+                        {% set content = comment['comment'] %}
+                    <div class="Comments_item">
+                        <div class="Comments_thumbnail"></div>
+                        <div class="Comment_frame">
+                            <div class="Comments_name">{{ id }}</div>
+                            <hr class="Comments_hr">
+                            <div class="Comments_content">{{ content }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- modal -->
+        <div id="__modal__"></div>
+    </div>
+</body>
+</html>
