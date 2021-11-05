@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <title>Youtube Random Player</title>
+
+    <link rel="stylesheet" href="../static/index.css"/>
+    <script src="../static/index.js"></script>
+
+
+    <script>
+        let id = "{{ id }}";
+        let nickname = "{{ nickname }}";
+    </script>
+</head>
+<body>
+
+<div class="master">
+    <div id="__header__"></div>
+
+    <div class="Frame-3">
+        <div class="FrameA">
+            <div class="LeftContents">
+                <div class="Center">
+                    <div>
+                        <div class="Happy-christmas">볼께 너무 많아서 PTSD가 올때</div>
+                        <div class="What-mood-are-you-in">아무거나, 일단 플레이</div>
+                    </div>
+                    <div class="Search">ㅇ
+                        <div class="Search item">
+                            <input id="query" type="text" class="Search_input"/>
+                            <div class="Search_icon">#</div>
+                            <img onclick="search_list('query')" src="../static/search.png" class="Search_btn Btn">
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        {% for toptag in toptags %}
+                            <span id="{{ toptag }}" class="Tag" style="cursor:pointer;"
+                                  onclick="search_list('{{ toptag }}')">
+                                    #{{ toptag }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="RightPic">
+                    <div class="Tada_img">
+                        <div class="Headphones_img"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
