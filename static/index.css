@@ -52,16 +52,16 @@ html, body {
     gap: 10px;
     padding: 8px 12px;
     border-radius: 10px;
-    background-color: #0ba983;
+    background-color: #fe5955;
 }
 
 .Happy-christmas {
-    width: 14.2%;
+    width: 25%;
     height: 4.2%;
     flex-grow: 0;
-    font-family: NotoSans;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.45;
@@ -142,9 +142,10 @@ html, body {
     height: 56px;
     flex-grow: 0;
     padding: 20px 50px 20px 90px;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
     background-color: #fff;
+    border:none;
 }
 .Search_icon {
     display: inline-block;
@@ -190,15 +191,15 @@ html, body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 50px;
-    border: 2px solid rgba(254, 89, 85, 0.5);
+    border-radius: 8px;
+    border: 2px solid #0ba983;
     font-size: 100%;
     font-family: 'Noto Sans', sans-serif;
     font-weight: bold;
     font-style: normal;
     color: #ffffff;
     box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
-    background-color: #fe5955;
+    background-color: #0ba983;
     text-align: center;
 }
 
@@ -322,7 +323,7 @@ h1 {
     position:absolute;
     top:0;
     right:0;
-    width: 1008px;
+    width: 1400px;
     height: 768px;
     margin: 0 0 0 57px;
     object-fit: contain;

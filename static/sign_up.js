@@ -143,3 +143,7 @@ function check_dup2() {
         }
     });
 }
+
+function to_login(){
+    location.href = '/login';
+}

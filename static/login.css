@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: #381feb;
     min-height: 100vh;
 }
 
@@ -12,31 +12,37 @@ body {
 .title {
     font-weight: 800;
     font-size: 5rem;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans', sans-serif;
 
 }
 
 .subtitle {
     font-size: 2rem;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .is-sparta {
-    color: red !important;
+    color: #fe5955 !important;
 }
 
 .button.is-sparta {
-    background-color: red;
-    border-color: transparent;
+    box-shadow: 0 14px 50px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+    border: none;
     color: #fff !important;
+    z-index: 20;
 }
 
 .button.is-sparta.is-outlined {
     background-color: transparent;
-    border-color: red;
-    color: red !important;
+    border-color: #fe5955;
+    color: #fe5955 !important;
 }
 
 .help {
-    color: gray;
+    color: darkgray;
+}
+
+.hero.is-white{
+    background-color: transparent!important;
 }

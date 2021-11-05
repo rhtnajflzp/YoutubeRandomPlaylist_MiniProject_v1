@@ -12,12 +12,21 @@
     <!-- bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
     <title>Title</title>
 
     <link rel="stylesheet" href="../static/header.css">
     <script src="../static/header.js"></script>
 
     <script>
+        // jinja2 사용을 위해 페이지 안에 내장시킨 함수
+        // 로그인여부 판단하여 로그인하지 않은 상태라면 Login 버튼 출력
         $(document).ready(function () {
             if(window.location.pathname == '/index' ||
                 window.location.pathname == '/'){
@@ -43,7 +52,7 @@
     <nav id="navbar" class="navbar is-link" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/index">
-            <img src="../static/Logo_Name.PNG" width="112" height="28">
+            <img src="../static/logo.png" width="112" height="28">
         </a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -63,11 +72,14 @@
     <div class="navbar-end">
         <div class="navbar-item">
             <div class="buttons" id="btns">
-                <a class="button is-primary" onclick="feed()">
+                <a class="button is-danger" onclick="feed()">
                     <strong>FEED</strong>
                 </a>
                 <a id='post-btn' class="button is-light" onclick="post()">
-                    <strong>POST</strong>
+                    <strong>ADD PLAYLIST</strong>
+                </a>
+                <a class="button is-danger" onclick="logout()">
+                    <strong>LOGOUT</strong>
                 </a>
             </div>
         </div>

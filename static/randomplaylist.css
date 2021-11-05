@@ -162,6 +162,7 @@ input.Tag_input::placeholder {
 }
 .Like {
     display: flex;
+    width: 951px;
 }
 .Like_user {
     width: 286.6px;

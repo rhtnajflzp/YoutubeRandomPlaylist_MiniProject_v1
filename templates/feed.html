@@ -25,13 +25,12 @@
     <div class="master">
         <div class="SearchnTag">
             <div class="control has-icons-left has-icons-right">
-                <input id="tag-content" class="input is-large" type="email" placeholder="Add your tag right here!">
-                <span class="icon is-medium is-left">
-                        <i class="fas fa-envelope"></i>
+                <input id="tag-content" type="text" class="Tag_input" placeholder="내가 보고 싶은 해쉬태그가 있다면 여기에 추가!"/>
+                <div class="Tag_icon">#</div>
                 </span>
-                <span class="icon is-medium is-right">
-                        <div class="search-button">+</div>
-                </span>
+                <div class="Tag_btn" id="tag_add_btn" onclick="tag_insert()">
+                    <div class="search-button">+</div>
+                </div>
             </div>
         </div>
         <div class="searchTag columns is-0 is-multiline is-desktop">
@@ -60,42 +59,43 @@
                 </div>
             </div>
             <div>
-                <h1 class="myplaylist"> Followed Playlist </h1>
+                <h1 class="myplaylist"> 내가 팔로우한 플레이 리스트 </h1>
                 <div class="feed columns is-4 is-multiline is-desktop">
                     {% for like_playlist in like_playlists %}
                         <div class="column is-one-third">
                             <div class="card-image Btn"
                                  onclick="playlist('{{ like_playlist['playlistId'] }}', '{{ like_playlist['author'] }}')">
                                 <figure class="image is-4by3">
-                                    <img src="{{ like_playlist['thumbnail'] }}"
+                                    <img class="thumbnail_img" src="{{ like_playlist['thumbnail'] }}"
                                          alt="Placeholder image">
                                 </figure>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <h1 class="myplaylist"> My Playlist </h1>
+                <h1 class="myplaylist"> 내 플레이 리스트 </h1>
                 <div class="feed columns is-4 is-multiline is-desktop">
                     {% for my_playlist in my_playlists %}
                         <div class="column is-one-third">
                             <div class="card-image Btn"
                                  onclick="playlist('{{ my_playlist['playlistId'] }}', '{{ my_playlist['id'] }}')">
                                 <figure class="image is-4by3">
-                                    <img src="{{ my_playlist['thumbnail'] }}" alt="Placeholder image">
+                                    <img class="thumbnail_img" src="{{ my_playlist['thumbnail'] }}"
+                                         alt="Placeholder image">
                                 </figure>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
 
-                <h1 class="myplaylist"> Watch other Playlist </h1>
+                <h1 class="myplaylist"> 이것도 들어보세요! </h1>
                 <div class="feed columns is-4 is-multiline is-desktop">
                     {% for other_playlist in other_playlists %}
                         <div class="column is-one-third">
                             <div class="card-image Btn"
                                  onclick="playlist('{{ other_playlist['playlistId'] }}', '{{ other_playlist['id'] }}')">
                                 <figure class="image is-4by3">
-                                    <img src="{{ other_playlist['thumbnail']}}"
+                                    <img class="thumbnail_img" src="{{ other_playlist['thumbnail'] }}"
                                          alt="Placeholder image">
                                 </figure>
                             </div>
@@ -108,5 +108,6 @@
     </div>
 
     <div id="__modal__"></div>
+
 </body>
 </html>

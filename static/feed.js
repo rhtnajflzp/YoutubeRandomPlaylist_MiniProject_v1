@@ -8,6 +8,7 @@ function playlist(playlistId, userId) {
 }
 
 function tag_insert() {
+    // 태그 삽입 기능
     let tag = $('#tag-content').val();
 
     $.ajax({
@@ -17,6 +18,7 @@ function tag_insert() {
             'tag_give': tag
         },
         success: function (response) { // 성공하면
+            alert(response['msg']);
             window.location.reload();
         }
     })

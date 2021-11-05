@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/modal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
     <script src="../static/modal.js"></script>
     <script>
-        function modal_show(){
+        function modal_show() {
             $('#modal_wrap').show();
         }
     </script>
 </head>
 <body>
-    <div id="modal_wrap">
-        <div id="modal" class="modal-overlay">
-            <div class="modal-window">
-                <div class="title">
-                    <h3>Playlist Posting</h3>
-                    <img src="../static/posting.png" class="Title_img"/>
-                </div>
-                <div class="content">
-                    <input id="modal-url" type="text" class="Input" placeholder="URL"/>
-                    <input id="modal-title" type="text" class="Input" placeholder="Title"/>
-                    <div onclick="post_playlist()" class="Post_btn">Post</div>
-                </div>
+<div id="modal_wrap">
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <img src="../static/posting.png" class="Title_img"/>
+                <h3>플레이리스트를 올려주세요.</h3>
+            </div>
+            <div class="content">
+                <input id="modal-url" type="text" class="Input" placeholder="플레이리스트의 URL을 여기에 적어주세요"/>
+                <input id="modal-title" type="text" class="Input" placeholder="플레이리스트 제목을 여기에 적어주세요"/>
+                <div onclick="post_playlist()" class="Post_btn">저장</div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

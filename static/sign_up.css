@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: #381feb;
     min-height: 100vh;
 }
 
@@ -26,17 +26,22 @@ body {
 }
 
 .button.is-sparta {
-    background-color: red;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24)!important;
+    background-color: #fe5955;
     border-color: transparent;
     color: #fff !important;
 }
 
 .button.is-sparta.is-outlined {
     background-color: transparent;
-    border-color: red;
-    color: red !important;
+    border-color: #fe5955;
+    color: #fe5955 !important;
 }
 
 .help {
     color: gray;
+}
+
+.hero.is-white {
+    background-color: transparent!important;
 }

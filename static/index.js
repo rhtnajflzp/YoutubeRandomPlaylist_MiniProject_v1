@@ -6,6 +6,7 @@ $(document).ready(function () {
 });
 
 function search_list(tag_name) {
+    // 검색 기능 실행시 영상 재생 화면으로 넘겨줌.
     let query = $('#' + tag_name).val();
 
     if (!query) {

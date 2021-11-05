@@ -1,9 +1,17 @@
+/* 슬픈 점은, 유튜브 영상에는 단일영상의 재생과 재생목록의 재생을 위한 플레이어가 별도로 존재한다는 점이다.
+ * 그리고 Youtube Data API는 단일 영상 재생과 플레이리스트 재생을 혼용할 수 있도록 하는 기능을 지원하지 않는다는 것이다.
+ * 두 개의 모드를 혼용하는 일이 거의 없기 때문이겠지. 하지만 우리는 이 기능이 반드시 필요했다.
+ * 그래서 여러가지 해결방법 중, API 핸들링 중요도가 낮은 것을 iframe 태그로 불러오는 방법을 채택하기로 했다.
+ * 이번 프로젝트에서는 단일영상에 대한 상세정보들을 얻어오는것이 중요했으므로 재생목록을 iframe으로 불러오기로 결정했다.
+ */
+
 $(document).ready(function () {
     $('#__header__').load("/header");
     let parameters = get_query();
     let playlistId = parameters['playlistId'];
     $('#comments').hide();
 
+    // 파라미터에 playlistId가 있을 경우 플레이리스트 재생모드로
     if (playlistId) {
         play_playlist(playlistId);
         $('#like').show();
@@ -11,6 +19,7 @@ $(document).ready(function () {
 
     let query = parameters['q'];
 
+    // 파라미터에 단일 영상에 대한 쿼리정보가 있을 경우 단일영상 재생모드로
     if (query) {
         setTimeout(() => {
             play_movie(query);
@@ -24,6 +33,7 @@ $(document).ready(function () {
     }
 });
 
+// 유튜브 플레이어 예외처리
 function onPlayerReady(event) {
     if (isPlay && list[yt_idx]['snippet']['liveBroadcastContent'] != 'none') {
         nextVideo();
@@ -43,6 +53,7 @@ function onError(event) {
     nextVideo();
 }
 
+// get 파라미터 수령해오는 함수
 function get_query() {
     let url = document.location.href;
     let qs = url.substring(url.indexOf('?') + 1).split('&');
@@ -55,6 +66,7 @@ function get_query() {
 }
 
 function search_list(tag_name) {
+    // 태그명으로 된 개체들을 가져와 그것을 그대로 검색어로 채용하는 방식을 사용했다.
     let query = $('#' + tag_name).val();
 
     if (!query) {
@@ -88,6 +100,7 @@ function play_movie(query) {
                 isPlay = true;
                 nextVideo();
 
+                // 단일 영상 재생모드로 진입하기 위한 정리.
                 $('#youtube-playlist').empty();
                 $('#youtube-movie').show();
                 $('#next-img').show();
@@ -99,10 +112,17 @@ function play_movie(query) {
 }
 
 function nextVideo() {
+    // 단일 영상 재생 함수
+    // 다음 영상을 재생시켜주는 index는 전역변수 yt_idx가 수행해준다.
     if (!isPlay) {
         return;
     }
 
+    /*  유튜브 쿼리 결과에는 여러가지 종류가 있다.
+     *  1. ['id']['kind'] : youtube#video(단일 영상), youtube#playlist(재생목록), youtube#channel(채널)
+     *  2. ['snippet']['liveBroadcastContent'] : none(일반 영상), live(실시간 방송), upcoming(최초공개)
+     *  이 중 youtube#video이면서 none인 것들만 재생하고자 했다.
+     */
     if (yt_idx >= list.length) {
     } else if (list[yt_idx]['id']['kind'] != 'youtube#video') {
         // console.log("Error! kind is not youtube#video. current kind : IDX " + yt_idx + " / "
@@ -136,6 +156,8 @@ function nextVideo() {
 }
 
 function play_playlist(playlistId) {
+    // 재생목록 재생을 위한 함수
+    // iframe에 url만 실어서 그대로 붙여넣는다.
     let temp_html = `<iframe id="youtube"
                 width="951px" height="533px"
                 src="https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1&loop=1"
@@ -143,6 +165,7 @@ function play_playlist(playlistId) {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>`;
 
+    // 플레이리스트모드로 전환하기 위한 정리.
     $('#youtube-movie').hide();
     $('#next-img').hide();
     $('#like').show();
@@ -197,6 +220,7 @@ function insert_comment(){
 }
 
 function like_playlist(){
+    // 플레이리스트 좋아요 추가/삭제를 위한 함수
     let parameters = get_query();
     let playlistId = parameters['playlistId'];
     let author = parameters['author'];
