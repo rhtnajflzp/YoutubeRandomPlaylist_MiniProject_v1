@@ -1,0 +1,343 @@
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #381feb;
+}
+
+.Frame-3 {
+    width: 1400px;
+    height: 100%;
+    flex-grow: 0;
+    background-color: #381feb;
+    background-size: 73.8% 100%;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.Vector-1 {
+    width: 5.5%;
+    height: 3.5%;
+    flex-grow: 0;
+    border: solid 2.5px #fff;
+    display: inline-block;
+}
+
+.Random-Playlist {
+    width: 15.2%;
+    height: 2%;
+    flex-grow: 0;
+    margin: 0 0 7px 15px;
+    font-family: NotoSans;
+    font-size: 20.9px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+.Selected {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: #fe5955;
+}
+
+.Happy-christmas {
+    width: 25%;
+    height: 4.2%;
+    flex-grow: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.What-mood-are-you-in {
+    width: 51.2%;
+    height: 9.1%;
+    flex-grow: 0;
+    font-family: NotoSans;
+    font-size: 60px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+.Top {
+    width: 100%;
+    height: 5.3%;
+    position: relative;
+}
+
+.Top-left {
+    display: inline-block;
+    width: 49.5%;
+    height: 100%;
+    text-align: left;
+    margin: 3.5% 0 0 5.5%;
+}
+
+.Top-right {
+    display: inline-block;
+    width: 38.5%;
+    height: 100%;
+    text-align: right;
+    margin: 3.5% 5.5% 0 0;
+}
+
+.Top-category {
+    display: inline-block;
+    text-align: center;
+    margin: 0 0 0 69px;
+    flex-grow: 0;
+    font-family: NotoSans;
+    font-size: 16px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: normal;
+    color: #fff;
+    line-height: 2;
+}
+
+.Center {
+    width: 94.5%;
+    height: 66.8%;
+    margin: 10% 0 0 5.5%;
+    background-size: 50% 61%;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+.Search {
+    position: relative;
+    margin: 27px 0 46px 0;
+    z-index:5;
+}
+.Search_input {
+    width: 693px;
+    height: 56px;
+    flex-grow: 0;
+    padding: 20px 50px 20px 90px;
+    border-radius: 15px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fff;
+    border:none;
+}
+.Search_icon {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 74px;
+    height: 45px;
+    flex-grow: 0;
+    padding: 9px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+
+    font-family: Roboto;
+    font-size: 44px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.64;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.Search_btn {
+    position: absolute;
+    left: 650px;
+    top: 15px;
+
+    width: 25px;
+    height: 22px;
+}
+.Btn{
+    cursor: pointer;
+}
+
+.Tag {
+    width: 11.3%;
+    height: 30px;
+    position: relative;
+    flex-grow: 0;
+    display: block;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px solid #0ba983;
+    font-size: 100%;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    color: #ffffff;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #0ba983;
+    text-align: center;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap:24px;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+
+}
+
+.input-box {
+
+}
+
+
+.Random-Playlist {
+    size: auto;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 20.9pt;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: white;
+}
+
+/** {*/
+/*    font-family: 'Noto Sans', sans-serif;*/
+/*    background-color:#3b24e1;*/
+/*}*/
+
+
+.Frame-2 {
+    width: 419px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    margin: auto auto auto 593px;
+    padding: 0;
+}
+
+
+.NavButton {
+    width: 122px;
+    height: 24px;
+    flex-grow: 0;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+
+#parallax {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://raw.githubusercontent.com/oscicen/oscicen.github.io/master/img/depth-3.png), url(https://raw.githubusercontent.com/oscicen/oscicen.github.io/master/img/depth-2.png), url(https://raw.githubusercontent.com/oscicen/oscicen.github.io/master/img/depth-1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 50% 50%;
+}
+h1 {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: "Arial";
+  text-transform: uppercase;
+  opacity: .2;
+  font-size: 70px;
+}
+
+.LeftContents {
+ position:absolute;
+    top:50%;
+    left:0;
+    width:110%;
+    z-index: 1;
+}
+
+.RightPic{
+    position:absolute;
+    top: 0;
+    right:0;
+    width:50%;
+}
+.Headphones_img {
+    position:absolute;
+    top:10;
+    right:0;
+    width: 620px;
+    height: 513px;
+    margin: 115px 0 0;
+    object-fit: contain;
+
+    background-image: url('../static/headphones.webp');
+    background-size: cover;
+}
+.Tada_img {
+    position:absolute;
+    top:0;
+    right:0;
+    width: 1400px;
+    height: 768px;
+    margin: 0 0 0 57px;
+    object-fit: contain;
+
+    background-image: url('../static/tada.webp');
+    background-size: cover;
+}
+
+.FrameA{
+   position: relative;
+    width:100%;
+}
+
+.master{
+    width:1440px;
+    margin:auto;
+}

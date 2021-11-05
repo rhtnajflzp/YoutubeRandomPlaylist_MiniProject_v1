@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <title>Youtube Random Player</title>
+
+    <link rel="stylesheet" href="../static/feed.css">
+    <script src="../static/feed.js"></script>
+</head>
+<body>
+    <div id="__header__"></div>
+
+    <div class="master">
+        <div class="SearchnTag">
+            <div class="control has-icons-left has-icons-right">
+                <input id="tag-content" type="text" class="Tag_input" placeholder="내가 보고 싶은 해쉬태그가 있다면 여기에 추가!"/>
+                <div class="Tag_icon">#</div>
+                </span>
+                <div class="Tag_btn" id="tag_add_btn" onclick="tag_insert()">
+                    <div class="search-button">+</div>
+                </div>
+            </div>
+        </div>
+        <div class="searchTag columns is-0 is-multiline is-desktop">
+            {% for tag in tags %}
+                <div class="column is-one-fifth">
+                    <button id="{{ tag['tag'] }}"
+                            type="button"
+                            class="Tag Btn"
+                            onclick="search_list('{{ tag['tag'] }}')">
+                        #{{ tag['tag'] }}
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="group">
+            <div class="align sort dropdown">
+                <span>Sort by: Featured</span>
+                <div class="dropdown-content">
+                    <p>Sort by: Likes: Low to High</p>
+                    <p>Sort by: Likes: High to Low</p>
+                    <p>Sort by: Views: Low to High</p>
+                    <p>Sort by: Views: High to Low</p>
+                    <p>Sort by: Comments: Low to High</p>
+                    <p>Sort by: Comments: High to Low</p>
+                </div>
+            </div>
+            <div>
+                <h1 class="myplaylist"> 내가 팔로우한 플레이 리스트 </h1>
+                <div class="feed columns is-4 is-multiline is-desktop">
+                    {% for like_playlist in like_playlists %}
+                        <div class="column is-one-third">
+                            <div class="card-image Btn"
+                                 onclick="playlist('{{ like_playlist['playlistId'] }}', '{{ like_playlist['author'] }}')">
+                                <figure class="image is-4by3">
+                                    <img class="thumbnail_img" src="{{ like_playlist['thumbnail'] }}"
+                                         alt="Placeholder image">
+                                </figure>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <h1 class="myplaylist"> 내 플레이 리스트 </h1>
+                <div class="feed columns is-4 is-multiline is-desktop">
+                    {% for my_playlist in my_playlists %}
+                        <div class="column is-one-third">
+                            <div class="card-image Btn"
+                                 onclick="playlist('{{ my_playlist['playlistId'] }}', '{{ my_playlist['id'] }}')">
+                                <figure class="image is-4by3">
+                                    <img class="thumbnail_img" src="{{ my_playlist['thumbnail'] }}"
+                                         alt="Placeholder image">
+                                </figure>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <h1 class="myplaylist"> 이것도 들어보세요! </h1>
+                <div class="feed columns is-4 is-multiline is-desktop">
+                    {% for other_playlist in other_playlists %}
+                        <div class="column is-one-third">
+                            <div class="card-image Btn"
+                                 onclick="playlist('{{ other_playlist['playlistId'] }}', '{{ other_playlist['id'] }}')">
+                                <figure class="image is-4by3">
+                                    <img class="thumbnail_img" src="{{ other_playlist['thumbnail'] }}"
+                                         alt="Placeholder image">
+                                </figure>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="__modal__"></div>
+
+</body>
+</html>

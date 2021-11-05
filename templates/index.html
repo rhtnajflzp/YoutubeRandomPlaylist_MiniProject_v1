@@ -21,201 +21,55 @@
 
     <title>Youtube Random Player</title>
 
-    <style>
-        html, body{
-            margin: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        .Frame-3 {
-            width: 100%;
-            height: 100%;
-            flex-grow: 0;
-            background-color: #381feb;
-            background-image: url('img/image-1.png');
-            background-size: 73.8% 100%;
-            background-position: right;
-            background-repeat: no-repeat;
-        }
-        .Vector-1 {
-            width: 5.5%;
-            height: 3.5%;
-            flex-grow: 0;
-            border: solid 2.5px #fff;
-            display: inline-block;
-        }
-        .Random-Playlist {
-            width: 15.2%;
-            height: 2%;
-            flex-grow: 0;
-            margin: 0 0 7px 15px;
-            font-family: NotoSans;
-            font-size: 20.9px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.43;
-            letter-spacing: normal;
-            text-align: left;
-            color: #fff;
-        }
-        .Selected {
-            display: inline-block;
-            width: 25%;
-            height: 100%;
-            flex-grow: 0;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            background-color: #0ba983;
-        }
-        .Happy-chrismas {
-            width: 14.2%;
-            height: 4.2%;
-            flex-grow: 0;
-            font-family: NotoSans;
-            font-size: 22px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.45;
-            letter-spacing: normal;
-            text-align: left;
-            color: rgba(255, 255, 255, 0.72);
-        }
-        .What-mood-are-you-in {
-            width: 51.2%;
-            height: 9.1%;
-            flex-grow: 0;
-            font-family: NotoSans;
-            font-size: 60px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.2;
-            letter-spacing: normal;
-            text-align: left;
-            color: #fff;
-        }
+    <link rel="stylesheet" href="../static/index.css"/>
+    <script src="../static/index.js"></script>
 
-        .Top{
-            width: 100%;
-            height: 5.3%;
-            position:relative;
-        }
-        .Top-left{
-            display: inline-block;
-            width: 49.5%;
-            height: 100%;
-            text-align: left;
-            margin: 3.5% 0 0 5.5%;
-        }
-        .Top-right{
-            display: inline-block;
-            width: 38.5%;
-            height: 100%;
-            text-align: right;
-            margin: 3.5% 5.5% 0 0;
-        }
-        .Top-category{
-            display: inline-block;
-            text-align: center;
-            margin: 0 0 0 69px;
-            flex-grow: 0;
-            font-family: NotoSans;
-            font-size: 16px;
-            font-weight: 900;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 100%;
-            letter-spacing: normal;
-            color: #fff;
-            line-height: 2;
-        }
-        .Center{
-            width: 94.5%;
-            height: 66.8%;
-            margin: 10% 0 0 5.5%;
-            background-image: url('img/Headphones-1.png');
-            background-size: 50% 61%;
-            background-position: right top;
-            background-repeat: no-repeat;
-        }
-        .Search{
-            width: 46.6%;
-            height: 6.1%;
-            margin-top: 3%;
-        }
-        .input-box{
 
-        }
-    </style>
     <script>
-        let yt_idx = 0;
-        let list;
-
-        $(document).ready(function () {
-
-        });
-
-        function search_list() {
-            let query = $('#query').val()
-
-            $.ajax({
-                type: "GET",
-                url: "/search?q=" + query,
-                data: {},
-                success: function (response) { // 성공하면
-                    //영상 정보 가져오기
-                    list = response['list']['items'];
-
-                    console.log(response);
-                    if(list && list.length > 0){
-                        console.log(list);
-                    }
-                }
-            })
-        }
+        let id = "{{ id }}";
+        let nickname = "{{ nickname }}";
     </script>
 </head>
 <body>
+
+<div class="master">
+    <div id="__header__"></div>
+
     <div class="Frame-3">
-        <div class="Top">
-            <div class="Top-left">
-                <div class="Vector-1"></div>
-                <span class="Random-Playlist">RANDOM PLAYLIST</span>
-            </div>
-            <div class="Top-right">
-                <div class="Selected Top-category"><span class="Music">Music</span></div>
-                <div class="Top-category"><span class="Excercise">Excercise</span></div>
-                <div class="Top-category"><span class="Financial">Financial</span></div>
-                <div class="Top-category"><span class="Entertainment">Entertainment</span></div>
-            </div>
-        </div>
-        <div class="Center">
-            <div>
-                <div class="Happy-chrismas">Happy chrismas</div>
-                <div class="What-mood-are-you-in">What mood are you in?</div>
-            </div>
-            <div class="Search">
-                <div class="input-group mb-3 input-box">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">#</span>
+        <div class="FrameA">
+            <div class="LeftContents">
+                <div class="Center">
+                    <div>
+                        <div class="Happy-christmas">볼께 너무 많아서 PTSD가 올때</div>
+                        <div class="What-mood-are-you-in">아무거나, 일단 플레이</div>
                     </div>
-                    <input id="query" type="text" class="form-control" aria-label="Default"
-                           aria-describedby="inputGroup-sizing-default">
-                    <button onclick="search_list()" type="button" class="btn btn-primary">🔍</button>
+                    <div class="Search">ㅇ
+                        <div class="Search item">
+                            <input id="query" type="text" class="Search_input"/>
+                            <div class="Search_icon">#</div>
+                            <img onclick="search_list('query')" src="../static/search.png" class="Search_btn Btn">
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        {% for toptag in toptags %}
+                            <span id="{{ toptag }}" class="Tag" style="cursor:pointer;"
+                                  onclick="search_list('{{ toptag }}')">
+                                    #{{ toptag }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="RightPic">
+                    <div class="Tada_img">
+                        <div class="Headphones_img"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="search">
-
-    </div>
 </body>
+
+
 </html>

@@ -1,0 +1,382 @@
+.Background {
+    width: 100%;
+    height: auto;
+    flex-grow: 0;
+    padding: 28px 53px 134px 48px;
+    background-color: #3b24e1;
+    overflow: hidden;
+}
+.main {
+    width: 50%;
+    margin: 0 auto;
+}
+.Btn {
+    cursor: pointer;
+}
+.Align_center {
+    width: 690px;
+    margin: 0 auto;
+}
+
+.TopTag {
+    display: flex;
+    justify-content: center;
+}
+.TopTag > span {
+    width: auto;
+    height: 28px;
+    flex-grow: 0;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1px 29.8px 0 0;
+    padding: 0 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #a29bd1;
+
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+
+.Search {
+    position: relative;
+    margin: 27px 0 46px 0;
+}
+.Search_input {
+    width: 951px;
+    height: 56px;
+    flex-grow: 0;
+    padding: 20px 50px 20px 90px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fff;
+}
+.Search_icon {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 74px;
+    height: 45px;
+    flex-grow: 0;
+    padding: 9px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+
+    font-family: Roboto;
+    font-size: 44px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.64;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.Search_btn {
+    position: absolute;
+    left: 910px;
+    top: 15px;
+
+    width: 25px;
+    height: 22px;
+}
+
+.Tag {
+    position: relative;
+}
+.Tag_input {
+    width: 150px;
+    height: 30px;
+    flex-grow: 0;
+    margin: 40px 0 46px 50px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fff;
+}
+input.Tag_input::placeholder {
+    font-family: Roboto;
+    font-size: 19px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.47;
+    letter-spacing: normal;
+    color: #7d7d7d;
+}
+.Tag_btn {
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    top: 40px;
+    left: 157px;
+    margin: 3px 0 2px 14px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.Tag_list {
+    width: 96px;
+    height: 28px;
+    margin: 0 auto 30px auto;
+    font-family: Roboto;
+    font-size: 19px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.47;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+#like{
+    display: none;
+}
+#like_btn {
+    width: 60px;
+    position: absolute;
+    right: 2%;
+    top: 10%;
+}
+.Like {
+    display: flex;
+    width: 951px;
+}
+.Like_user {
+    width: 286.6px;
+    height: 54px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    margin: 32px 19.7px 0 0;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+}
+.Like_other {
+    width: 81.6px;
+    height: 54px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 32px 0 33px 0;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fe5955;
+}
+.Like_text {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+
+.Playlist {
+    position:relative;
+    width: 951px;
+    height: 186px;
+    flex-grow: 0;
+    margin: 32px 0 70px;
+    padding: 41px 54px 36px 42px;
+    border-radius: 10px;
+    background-color: #000;
+}
+.Author {
+    width: 729px;
+    height: 32px;
+    margin: 0 0 7px 0;
+    font-family: NotoSans;
+    font-size: 21px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.52;
+    letter-spacing: normal;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.72);
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+.Title {
+    width: 729px;
+    height: 70px;
+    margin: 7px 0 0 0;
+    font-family: NotoSans;
+    font-size: 59px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+.Next_image{
+    position:absolute;
+    top: 50px;
+    left: 830px;
+    width: 90px;
+    height: 90px;
+}
+
+.Comment {
+    position: relative;
+    width: 951px;
+}
+.Comment_input {
+    width: 951px;
+    height: 51px;
+    flex-grow: 0;
+    margin: 0 106px 56px 4px;
+    padding: 0 24px 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #fff;
+}
+input.Comment_input::placeholder {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: #776969;
+}
+.Comment_btn {
+    position: absolute;
+    top: 15px;
+    left: 915px;
+    width: 20px;
+    height: 20px;
+}
+
+.Recommend {
+    position: relative;
+}
+.Recommend_list {
+    width: 121.4px;
+    height: 100.6px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 31.4px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+
+    background-image: url('../static/test.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Recommend_list_play {
+    width: 68px;
+    height: 48px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.25);
+
+    font-size: 20px;
+    text-align: center;
+    color: #eaeaea;
+    line-height: 2.4;
+}
+
+.Comments{
+    width: 951px;
+}
+.Comments_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.Comments_thumbnail {
+    width: 124px;
+    height: 108px;
+    margin: 6.4px 24px 32px 4px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    background-color: #eb4848;
+    background-image: url('../static/user.png');
+    background-size: cover;
+    background-position: center;
+}
+.Comment_frame{
+    width: 803px;
+    min-height: 108px;
+    margin: 6.4px 0 32px 0;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px 0 rgba(254, 89, 85, 0.24);
+    border: solid 1px #fff;
+    background-color: rgba(255, 255, 255, 0);
+}
+.Comments_name{
+    font-family: NotoSans;
+    font-size: 22px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+.Comments_hr{
+    border: dotted 1px rgba(255, 255, 255, 0.3);
+    padding: 0;
+    margin: 5px 0;
+}
+.Comments_content {
+    font-family: NotoSans;
+    font-size: 18px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.78;
+    letter-spacing: normal;
+    text-align: left;
+    color: #eaeaea;
+}
+
