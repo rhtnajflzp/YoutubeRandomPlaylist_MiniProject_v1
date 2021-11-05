@@ -17,7 +17,7 @@ client = MongoClient('mongodb://test:test@localhost', 27017)
 # client = MongoClient('localhost', 27017)
 db = client.youtuberandomplaylist
 
-api_key = 'AIzaSyBzCJPtpsZewdi_NX_R_jY1c6yzuOhDoyk'
+api_key = 'Your key'
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 
