@@ -37,7 +37,7 @@
 |ID 중복검사|POST|/sign_up/check_dup|{'id_give': id}|{'result': result,  'exists': exists}|
 |닉네임 중복검사|POST|/sign_up/check_dup2|{'nickname_give': nickname}|{'result': result,  'exists': exists}|
 |영상 검색</br>결과 조회|GET|/search|{'q': query}|{'list': search_result}|
-|재생목록</br>유효성 검사|POST|/playlist/search|{'plalistId_give': playlistId,  'author_give': author}|'‘playlist': playlist,  'nickname': author}|
+|재생목록</br>유효성 검사|POST|/playlist/search|{'plalistId_give': playlistId,  'author_give': author}|{'playlist': playlist,  'nickname': author}|
 |재생목록 추가|POST|/playlist/insert|{'playlistId_give': playlistId,  'title_give': title}|{'msg': msg}|
 |태그 추가|POST|/tag/insert|{'tag_give': tag}|{'msg': msg}|
 |태그 삭제|POST|/tag/delete|{'tag_give': tag}|{'msg': msg}|
