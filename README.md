@@ -28,7 +28,7 @@
 
 ## 🏷 API Table
 |기능|Method|URL|Request|Response|
-|:---:|:----:|:----:|:----:|:----:|
+|:---:|----|----|----|----|
 |랜덤 태그 목록 조회|GET|/index| |{'tags' : tag}|
 |Randomplaylist 페이지 정보 조회|GET|/randomplaylist|{'playlistid_receive': platlistId,
 'author_receive': author}|{'playlistId': playlistId,
