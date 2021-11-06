@@ -42,9 +42,11 @@ def get_user_info():
 # HTML을 주는 부분
 @app.route('/')
 def home():
-    # 가장 많이 추가한 상위 3개의 태그 목록만 출력
+    # 서치바 아래에 표시해 줄 태그 목록 출력
     top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
+    # 태그 목록 섞기
     random.shuffle(top_tags)
+    # 받아온 태그 목록 중 3개만 출력
     top_tags_response = top_tags[:3]
 
     user_info = get_user_info()
@@ -55,7 +57,6 @@ def home():
 
 @app.route('/index')
 def index():
-    # 가장 많이 추가한 상위 3개의 태그 목록만 출력
     top_tags = list(db.tag.find({}, {'_id': False}).distinct('tag'))
     random.shuffle(top_tags)
     top_tags_response = top_tags[:3]
@@ -135,6 +136,7 @@ def feed():
     # feed창은 로그인해야만 볼 수 있음. 유효성 체크
     user_info = get_user_info()
     if 'id' not in user_info:
+        # 유효하지 않은 계정일 시, 초기화면으로 이동.
         return render_template('index.html')
 
     # 내가 추가한 태그 목록을 출력
@@ -204,10 +206,14 @@ def sign_in():
 # 회원가입처리
 @app.route('/sign_up/save', methods=['POST'])
 def sign_up():
+    # 파라미터 수령
     id_receive = request.form['id_give']
     password_receive = request.form['password_give']
     nickname_receive = request.form['nickname_give']
+
+    # 받아온 비밀번호 파라미터 암호화
     password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+
     doc = {
         "id": id_receive,  # 아이디
         "password": password_hash,  # 비밀번호
@@ -221,6 +227,7 @@ def sign_up():
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
     id_receive = request.form['id_give']
+    # db 찾아서 값이 존재하면 이미 있는 ID = 중복
     exists = bool(db.users.find_one({"id": id_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
@@ -229,6 +236,7 @@ def check_dup():
 @app.route('/sign_up/check_dup2', methods=['POST'])
 def check_dup2():
     nickname_receive = request.form['nickname_give']
+    # db 찾아서 값이 존재하면 이미 있는 닉네임 = 중복
     exists = bool(db.users.find_one({"nickname": nickname_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
@@ -236,9 +244,20 @@ def check_dup2():
 # randomplaylist.html
 @app.route('/search', methods=['GET'])
 def listing():
+    # GET 타입의 파라미터 수령.
     query_receive = request.args.get('q')
 
     # 키워드 검색 결과 받아오기 ( Youtube Data Api 사용 )
+    # q : query
+    # order : 정렬 기준.
+    # # date – 업로드 날짜순
+    # # rating – 영상 평가순
+    # # relevance – 연관 동영상으로 출력. 기본값.
+    # # title – 제목 기준 오름차순.
+    # # videoCount – 업로드한 동영상 개수 순.
+    # # viewCount – 조회순.
+    # part : 가져올 데이터. id는 안 써봐서 잘 모르겠고, snippet은 영상의 상세정보들이 전부 들어옴.
+    # maxResults : 가져올 데이터의 개수. API 할당량을 고려하여 잘 설정하는것이 중요함.
     search_response = youtube.search().list(
         q=query_receive,
         order="viewCount",
@@ -253,6 +272,8 @@ def listing():
 def search_playlist():
     playlistId_receive = request.form['playlistId_give']
     author_receive = request.form['author_give']
+
+    # 재생목록이 실제로 등록이 되었는지 검사.
     playlist = db.user_playlist.find_one({'id': author_receive, 'playlistId': playlistId_receive})
 
     if playlist is not None:
@@ -285,11 +306,8 @@ def insert_playlist():
         part="snippet"
     ).execute()
 
-    thumbnail = ''
-
-    msg = 'Hi!'
-
     if search_response is not None:
+        # 쿼리 결과를 통해 썸네일의 url을 받아오기.
         thumbnail = search_response['items'][0]['snippet']['thumbnails']['high']['url']
         if playlist is None:
             doc = {'id': user_info['id'],
@@ -322,6 +340,7 @@ def tag_insert():
 
     tag_receive = request.form['tag_give']
 
+    # 유효한 태그인지 검사
     list = db.tag.find_one({'id': user_info['id'], 'tag': tag_receive})
     if list:
         msg = '이미 추가한 태그입니다.'
