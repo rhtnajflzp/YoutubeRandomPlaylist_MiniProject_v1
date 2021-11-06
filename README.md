@@ -30,12 +30,12 @@
 |기능|Method|URL|Request|Response|
 |:---:|----|----|----|----|
 |랜덤 태그 목록 조회|GET|/index| |{'tags' : tag}|
-|Randomplaylist 페이지 정보 조회|GET|/randomplaylist|{'playlistid_receive': platlistId,</br>
-'author_receive': author}|{'playlistId': playlistId,</br>
-'toptags': toptags,</br>
-'likes': likes,</br>
-'like_cnt': likes_cnt,</br>
-'comments': comments,</br>
+|Randomplaylist 페이지 정보 조회|GET|/randomplaylist|{'playlistid_receive': platlistId,  
+'author_receive': author}|{'playlistId': playlistId,  
+'toptags': toptags,  
+'likes': likes,  
+'like_cnt': likes_cnt,  
+'comments': comments,  
 'islike': islike}|
 |Feed 페이지 정보 조회|GET|/feed|<user_info>|{'tags': tags,
 'my_playlists': my_playlists,
