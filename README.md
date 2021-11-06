@@ -30,45 +30,21 @@
 |기능|Method|URL|Request|Response|
 |:---:|----|----|----|----|
 |랜덤 태그 목록 조회|GET|/index| |{'tags' : tag}|
-|Randomplaylist 페이지 정보 조회|GET|/randomplaylist|{'playlistid_receive': platlistId,  
-'author_receive': author}|{'playlistId': playlistId,  
-'toptags': toptags,  
-'likes': likes,  
-'like_cnt': likes_cnt,  
-'comments': comments,  
-'islike': islike}|
-|Feed 페이지 정보 조회|GET|/feed|<user_info>|{'tags': tags,
-'my_playlists': my_playlists,
-'like_playlists': like_playlists,
-'other_playlists': other_playlists}|
-|로그인|POST|/sign_in|{'id_give': id,
-'password_give': password}|{'result': result,
-'token': token,
-'msg': msg}|
-|회원가입|POST|/sign_up/save|{'id_give': id,
-'password_give': password,
-'nickname_give': nickname}|{'result': result}|
-|ID 중복검사|POST|/sign_up/check_dup|{'id_give': id}|{'result': result,
-'exists': exists}|
-|닉네임 중복검사|POST|/sign_up/check_dup2|{'nickname_give': nickname}|{'result': result,
-'exists': exists}|
+|Randomplaylist 페이지 정보 조회|GET|/randomplaylist|{'playlistid_receive': platlistId,  'author_receive': author}|{'playlistId': playlistId, 'toptags': toptags,  'likes': likes,  'like_cnt': likes_cnt,  'comments': comments,  'islike': islike}|
+|Feed 페이지 정보 조회|GET|/feed|<user_info>|{'tags': tags,  'my_playlists': my_playlists,  'like_playlists': like_playlists,  'other_playlists': other_playlists}|
+|로그인|POST|/sign_in|{'id_give': id,  'password_give': password}|{'result': result,  'token': token,  'msg': msg}|
+|회원가입|POST|/sign_up/save|{'id_give': id,  'password_give': password,  'nickname_give': nickname}|{'result': result}|
+|ID 중복검사|POST|/sign_up/check_dup|{'id_give': id}|{'result': result,  'exists': exists}|
+|닉네임 중복검사|POST|/sign_up/check_dup2|{'nickname_give': nickname}|{'result': result,  'exists': exists}|
 |영상 검색 결과 조회|GET|/search|{'q': query}|{'list': search_result}|
-|재생목록 유효성 검사|POST|/playlist/search|{'plalistId_give': playlistId,
-'author_give': author}|'‘playlist': playlist,
-'nickname': author}|
-|재생목록 추가|POST|/playlist/insert|{'playlistId_give': playlistId,
-'title_give': title}|{'msg': msg}|
+|재생목록 유효성 검사|POST|/playlist/search|{'plalistId_give': playlistId,  'author_give': author}|'‘playlist': playlist,  'nickname': author}|
+|재생목록 추가|POST|/playlist/insert|{'playlistId_give': playlistId,  'title_give': title}|{'msg': msg}|
 |태그 추가|POST|/tag/insert|{'tag_give': tag}|{'msg': msg}|
 |태그 삭제|POST|/tag/delete|{'tag_give': tag}|{'msg': msg}|
 |태그 인기순으로 출력|GET|/tag_popular| |{'tags': msg}|
-|댓글 작성|POST|/comment/insert|{'comment_give': comment,
-'playlistId_give': playlistId,
-'author_give': author}|{'msg': msg}|
-|댓글 삭제|POST|/comment/delete|{'comment_give': comment,
-'playlistId_give': playlistId,
-'author_give': author}|{'msg': msg}|
-|좋아요 추가/삭제|POST|/likelist|{'author_give': author,
-'playlistId_give': playlistId}|{'msg': msg}|
+|댓글 작성|POST|/comment/insert|{'comment_give': comment,  'playlistId_give': playlistId,  'author_give': author}|{'msg': msg}|
+|댓글 삭제|POST|/comment/delete|{'comment_give': comment,  'playlistId_give': playlistId,  'author_give': author}|{'msg': msg}|
+|좋아요 추가/삭제|POST|/likelist|{'author_give': author,  'playlistId_give': playlistId}|{'msg': msg}|
 
 
 
