@@ -10,7 +10,7 @@
 </br>
 
 ## 🎥 시연 영상
-https://youtu.be/L1hqNuSWO0Y
+[![Watch the video]] https://youtu.be/L1hqNuSWO0Y
 
 ## 🧑🏼‍💻 팀원 
 탁예준(팀장), 김용빈,  백정수
