@@ -7,15 +7,11 @@
     overflow: hidden;
 }
 .main {
-    width: 50%;
+    width: 951px;
     margin: 0 auto;
 }
 .Btn {
     cursor: pointer;
-}
-.Align_center {
-    width: 690px;
-    margin: 0 auto;
 }
 
 .TopTag {
