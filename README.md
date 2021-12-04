@@ -4,9 +4,12 @@
 
 ## 🤷 Project Overview 프로젝트 소개 
  <p> Have you ever thought that there are too many options for you to chose and you just want to move to a different channel? </p>
- <p> You can insert the keyword that you are interested in and play randomly.입력한 키워드와 관련있는 영상을 랜덤하게 플레이 할 수 있는 사이트입니다. </p>
- <p> You can save your keyword channel, as well as add your favorite creators' playist. 키워드를 저장해 쉽게 불러와 랜덤 재생 할 수 있으며, 추가로 자신이 재미있게 본 크리에이터의 재생목록을 등록 할 수 있습니다.</p>
- <p> Furthermore, you can see other people's playlist and follow them. 또한, 다른 사람들이 등록한 플레이리스트를 자유롭게 보고 팔로우하여 언제든 볼 수 있습니다. </p>
+ <p> You can insert the keyword that you are interested in and play randomly.</p>
+ <p>입력한 키워드와 관련있는 영상을 랜덤하게 플레이 할 수 있는 사이트입니다. </p>
+ <p> You can save your keyword channel, as well as add your favorite creators' playist.</p>
+ <P>키워드를 저장해 쉽게 불러와 랜덤 재생 할 수 있으며, 추가로 자신이 재미있게 본 크리에이터의 재생목록을 등록 할 수 있습니다.</p>
+ <p> Furthermore, you can see other people's playlist and follow them. </p>
+  <p>또한, 다른 사람들이 등록한 플레이리스트를 자유롭게 보고 팔로우하여 언제든 볼 수 있습니다. </p>
   
   Web Site : http://youtuberandomplayer.shop/
 </br>
